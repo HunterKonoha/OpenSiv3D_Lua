@@ -53,3 +53,39 @@ function f(arg)
     coroutine.yield(arg + 4)
     return 0
 end
+
+TestClass = {}
+
+function TestClass:getString()
+    return "String"
+end
+
+function TestClass:getInt()
+    return 100
+end
+
+function TestClass:getValue(number)
+    if number == 1 then
+        return self.value_1
+    elseif number == 2 then
+        return self.value_2
+    else 
+        return nil
+    end
+end
+
+function TestClass:empty()
+
+end
+
+function TestClass:coroutine(arg)
+    coroutine.yield(arg + 1)
+    coroutine.yield(arg + 2)
+    coroutine.yield(arg + 4)
+    return 0
+end
+
+function TestClass.new(a, b)
+    local obj = {value_1 = a, value_2 = b}
+    return setmetatable(obj, {__index = TestClass})
+end

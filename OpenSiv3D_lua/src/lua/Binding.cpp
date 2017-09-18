@@ -19,8 +19,7 @@ void s3d::Lua::Binding::All() {
 
 
 void s3d::Lua::Binding::SystemBind() {
-  System::Update();
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"System")
     .setFunction(L"Update", sol::overload(System::Update, []() {return System::Update(); }))
     .setFunction(L"Exit", &System::Exit)
@@ -35,14 +34,14 @@ void s3d::Lua::Binding::SystemBind() {
 }
 
 void s3d::Lua::Binding::WindowBind() {
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"ShowState")
     .setValue(L"Normal", ShowState::Normal)
     .setValue(L"Minimized", ShowState::Minimized)
     .setValue(L"Maximized", ShowState::Maximized);
 
 
-  GlobalScript()
+  GlobalScript
     .setClass<WindowState>(L"WindowState")
     .value(L"clientSize", &WindowState::clientSize)
     .value(L"windowSize", &WindowState::windowSize)
@@ -54,7 +53,7 @@ void s3d::Lua::Binding::WindowBind() {
     .value(L"focused", &WindowState::focused)
     .value(L"fullScreen", &WindowState::fullScreen);
 
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"Window")
     .setValue(L"DefaultClientSize", sol::readonly_property(Window::DefaultClientSize))
     .setFunction(L"SetTitle", sol::resolve<void(const String&)>(&Window::SetTitle))
@@ -78,14 +77,14 @@ void s3d::Lua::Binding::WindowBind() {
 }
 
 void s3d::Lua::Binding::FontBind() {
-  Lua::GlobalScript()
+  Lua::GlobalScript
     .setClass<Font>(L"Font")
     .constructor<Font(), Font(int32, Typeface, FontStyle), Font(int32), Font(int32, Typeface)>()
     .metaFunction(sol::meta_function::call, (DrawableText(Font::*)(const String&)const)(&Font::operator()));
 }
 
 void s3d::Lua::Binding::DrawableTextBind() {
-  Lua::GlobalScript()
+  Lua::GlobalScript
     .setClass<DrawableText>(L"DrawableText")
     .constructor<DrawableText(const DrawableText&), DrawableText(DrawableText&&)>()
     .function(L"draw", sol::overload(sol::resolve<RectF(double, double, const ColorF&)const>(&DrawableText::draw),
@@ -103,44 +102,44 @@ void s3d::Lua::Binding::DrawableTextBind() {
 }
 
 void s3d::Lua::Binding::GraphicBind() {
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"Graphics")
     .setFunction(L"SetBackground", &Graphics::SetBackground);
 }
 
 void s3d::Lua::Binding::CursorBind() {
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"Cursor")
     .setFunction(L"Pos", &Cursor::Pos);
 }
 
 void s3d::Lua::Binding::MouseBind() {
-  GlobalScript()
+  GlobalScript
     .setValue(L"MouseL", &MouseL);
 }
 
 void s3d::Lua::Binding::KeyBind() {
-  GlobalScript()
+  GlobalScript
     .setClass<Key>(L"Key")
     .function(L"pressed", &Key::pressed);
 }
 
 void s3d::Lua::Binding::TextureBind() {
-  GlobalScript()
+  GlobalScript
     .setClass<Emoji>(L"Emoji")
     .constructor<Emoji(const String&)>();
 
-  GlobalScript()
+  GlobalScript
     .setClass<Texture>(L"Texture")
     .constructor<Texture(const Emoji&, TextureDesc)>()
     .function(L"resize",sol::resolve<TextureRegion(double)const>(&Texture::resize));
 
-  GlobalScript()
+  GlobalScript
     .setClass<TextureRegion>(L"TextureRegion")
     .constructor<TextureRegion()>()
     .function(L"draw", [](TextureRegion& obj, double x, double y) {return obj.draw(x, y); });
 
-  GlobalScript()
+  GlobalScript
     .setNamespace(L"TextureDesc")
     .setValue(L"Mipped", TextureDesc::Mipped);
 }

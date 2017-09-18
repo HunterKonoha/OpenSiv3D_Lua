@@ -259,3 +259,10 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+AS_DEBUG/
+Intermediate/
+example/
+engine/
+Debug-x86/
+Debug-x64/

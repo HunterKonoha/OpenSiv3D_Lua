@@ -4,7 +4,7 @@
 
 
 void s3d::Lua::Binding::Vec2Bind() {
-  GlobalScript()
+  GlobalScript
     .setClass<Vec2>(L"Vec2")
     .value(L"x", &Vec2::x)
     .value(L"y", &Vec2::y)

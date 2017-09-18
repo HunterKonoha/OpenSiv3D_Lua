@@ -63,6 +63,15 @@
     <ClCompile Include="src\lua\Bind\Vec2Bind.cpp">
       <Filter>lua\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="src\lua\GlobalScript.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\Script.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\Class.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Icon.ico">
@@ -195,9 +204,6 @@
     <ClInclude Include="src\lua\StackHelper.hpp">
       <Filter>lua</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua\Function.hpp">
-      <Filter>lua</Filter>
-    </ClInclude>
     <ClInclude Include="src\lua\ClassRegister.hpp">
       <Filter>lua</Filter>
     </ClInclude>
@@ -227,6 +233,15 @@
     </ClInclude>
     <ClInclude Include="src\lua\Bind\Vec2Bind.h">
       <Filter>lua\Bind</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\Class.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\IScriptSetter.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\IScriptLoader.hpp">
+      <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

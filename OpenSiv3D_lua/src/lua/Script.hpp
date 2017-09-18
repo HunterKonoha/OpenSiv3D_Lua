@@ -1,25 +1,25 @@
 #pragma once
 #include "IScriptState.hpp"
 #include "IScriptExecutor.hpp"
+#include "IScriptSetter.hpp"
+#include "IScriptLoader.hpp"
 
 namespace s3d {
   namespace Lua {
-    class Script :public IScriptState, public IScriptExecutor<Script> {
+    class Script :public IScriptState, public IScriptExecutor<Script>, public IScriptSetter<Script>, public IScriptLoader<Script> {
       friend class IScriptExecutor<Script>;
+      friend class IScriptSetter<Script>;
+      friend class IScriptLoader<Script>;
+
     private:
       sol::environment m_env;
 
     public:
-      Script() :m_env(getState(), sol::create, getState().globals()) {
-
-      }
-
+      Script();
       ~Script() = default;
 
     private:
-      sol::environment& getScript() {
-        return m_env;
-      }
+      sol::environment& getScript();
     };
   }
 }

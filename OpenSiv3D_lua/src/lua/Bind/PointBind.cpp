@@ -56,7 +56,7 @@ void s3d::Lua::Binding::PointBind() {
     .function(L"Up", &Point::Up)
     .function(L"Down", &Point::Down);
 
-  GlobalScript()
+  GlobalScript
     .setClass(L"Point", point)
     .setClass(L"Size", point);
 }

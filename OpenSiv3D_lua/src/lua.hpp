@@ -5,7 +5,7 @@
 #include <sol.hpp>
 
 #include "lua/SolStack.hpp"
-#include "lua/Function.hpp"
+#include "lua/Class.hpp"
 #include "lua/ClassRegister.hpp"
 #include "lua/NamespaceRegister.hpp"
 #include "lua/Coroutine.hpp"

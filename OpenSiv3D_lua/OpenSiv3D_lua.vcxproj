@@ -209,7 +209,10 @@
     <ClCompile Include="src\lua\Binding.cpp" />
     <ClCompile Include="src\lua\Bind\PointBind.cpp" />
     <ClCompile Include="src\lua\Bind\Vec2Bind.cpp" />
+    <ClCompile Include="src\lua\Class.cpp" />
+    <ClCompile Include="src\lua\GlobalScript.cpp" />
     <ClCompile Include="src\lua\IScriptState.cpp" />
+    <ClCompile Include="src\lua\Script.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="engine\texture\box-shadow\128.png" />
@@ -263,11 +266,13 @@
     <ClInclude Include="src\lua\Binding.hpp" />
     <ClInclude Include="src\lua\Bind\PointBind.hpp" />
     <ClInclude Include="src\lua\Bind\Vec2Bind.h" />
+    <ClInclude Include="src\lua\Class.hpp" />
     <ClInclude Include="src\lua\ClassRegister.hpp" />
     <ClInclude Include="src\lua\Coroutine.hpp" />
-    <ClInclude Include="src\lua\Function.hpp" />
     <ClInclude Include="src\lua\GlobalScript.hpp" />
     <ClInclude Include="src\lua\IScriptExecutor.hpp" />
+    <ClInclude Include="src\lua\IScriptLoader.hpp" />
+    <ClInclude Include="src\lua\IScriptSetter.hpp" />
     <ClInclude Include="src\lua\IScriptState.hpp" />
     <ClInclude Include="src\lua\NamespaceRegister.hpp" />
     <ClInclude Include="src\lua\Script.hpp" />
