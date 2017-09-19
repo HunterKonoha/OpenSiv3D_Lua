@@ -12,19 +12,19 @@ namespace s3d {
     };
 
     template<typename T>
-    class ClassRegister {
+    class ClassSetter {
     private:
       Array<std::function<void(std::reference_wrapper<sol::simple_usertype<T>>)>> m_func;
 
     public:
       template<typename ...Arg>
-      ClassRegister& constructor() {
+      ClassSetter& constructor() {
         m_func.emplace_back([=](auto ref) {ref.get().set(sol::meta_function::construct, sol::constructors<Arg...>()); });
         return *this;
       }
 
       template<typename V>
-      ClassRegister& value(const String& valueName, V&& memberValuePointer, RegisterOption option = RegisterOption::Any) {
+      ClassSetter& value(const String& valueName, V&& memberValuePointer, RegisterOption option = RegisterOption::Any) {
         static_assert(std::is_member_object_pointer_v<V>, "Argument must be member object pointer.");
         switch (option) {
           default:
@@ -44,31 +44,31 @@ namespace s3d {
       }
 
       template<typename F>
-      ClassRegister& function(const String& functionName, F&& function) {
+      ClassSetter& function(const String& functionName, F&& function) {
         m_func.emplace_back([=](auto ref) {ref.get().set(functionName.narrow(), function); });
         return *this;
       }
 
       template<typename F, typename R>
-      ClassRegister& property(const String& valueName, F&& getter, R&& setter) {
+      ClassSetter& property(const String& valueName, F&& getter, R&& setter) {
         m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::property(getter, setter)); });
         return *this;
       }
 
       template<typename F>
-      ClassRegister& readOnlyProperty(const String& valueName, F&& getter) {
+      ClassSetter& readOnlyProperty(const String& valueName, F&& getter) {
         m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::readonly_property(getter)); });
         return *this;
       }
 
       template<typename F>
-      ClassRegister& writeOnlyProperty(const String& valueName, F&& setter) {
+      ClassSetter& writeOnlyProperty(const String& valueName, F&& setter) {
         m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::writeonly_property(setter)); });
         return *this;
       }
 
       template<typename F>
-      ClassRegister& metaFunction(sol::meta_function meta, F&& function) {
+      ClassSetter& metaFunction(sol::meta_function meta, F&& function) {
         m_func.emplace_back([=](auto ref) {ref.get().set(meta, function); });
         return *this;
       }
@@ -79,7 +79,7 @@ namespace s3d {
     };
 
     template<typename T>
-    class ClassRegisterWithRAII :public ClassRegister<T> {
+    class ClassSetterWithRAII :public ClassSetter<T> {
     private:
       sol::simple_usertype<T> m_usertype;
       std::function<void(std::string, sol::simple_usertype<T>&)> m_register;
@@ -87,15 +87,15 @@ namespace s3d {
       bool m_load = false;
 
     public:
-      ClassRegisterWithRAII(const String& className, sol::simple_usertype<T> userType, const std::function<void(std::string, sol::simple_usertype<T>&)>& func)
+      ClassSetterWithRAII(const String& className, sol::simple_usertype<T> userType, const std::function<void(std::string, sol::simple_usertype<T>&)>& func)
         :m_usertype(std::move(userType)), m_register(func), m_classname(className) {
 
       }
 
-      ClassRegisterWithRAII(const ClassRegisterWithRAII&) = default;
-      ClassRegisterWithRAII(ClassRegisterWithRAII&&) = default;
+      ClassSetterWithRAII(const ClassSetterWithRAII&) = default;
+      ClassSetterWithRAII(ClassSetterWithRAII&&) = default;
 
-      ~ClassRegisterWithRAII() {
+      ~ClassSetterWithRAII() {
         if (!m_load) {
           registerClass();
         }

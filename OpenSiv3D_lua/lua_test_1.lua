@@ -48,10 +48,10 @@ function main()
 end
 
 function f(arg)
-    coroutine.yield(arg + 1)
-    coroutine.yield(arg + 2)
-    coroutine.yield(arg + 4)
-    return 0
+    coroutine.yield("1")
+    coroutine.yield("1")
+    coroutine.yield("1")
+    return "0"
 end
 
 TestClass = {}
@@ -89,3 +89,5 @@ function TestClass.new(a, b)
     local obj = {value_1 = a, value_2 = b}
     return setmetatable(obj, {__index = TestClass})
 end
+
+testclass = TestClass.new(100, 200)

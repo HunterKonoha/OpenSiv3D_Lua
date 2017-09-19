@@ -204,12 +204,6 @@
     <ClInclude Include="src\lua\StackHelper.hpp">
       <Filter>lua</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua\ClassRegister.hpp">
-      <Filter>lua</Filter>
-    </ClInclude>
-    <ClInclude Include="src\lua\NamespaceRegister.hpp">
-      <Filter>lua</Filter>
-    </ClInclude>
     <ClInclude Include="src\lua\Coroutine.hpp">
       <Filter>lua</Filter>
     </ClInclude>
@@ -241,6 +235,12 @@
       <Filter>lua</Filter>
     </ClInclude>
     <ClInclude Include="src\lua\IScriptLoader.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\NamespaceSetter.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\ClassSetter.hpp">
       <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>

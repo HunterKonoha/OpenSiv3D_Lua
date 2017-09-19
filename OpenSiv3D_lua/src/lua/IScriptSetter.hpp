@@ -1,10 +1,11 @@
 #pragma once
 #include <Siv3D.hpp>
 #include <sol.hpp>
-#include "NamespaceRegister.hpp"
-#include "ClassRegister.hpp"
+#include "ClassSetter.hpp"
 
 namespace s3d::Lua {
+  class NamespaceSetter;
+
   template<typename Self>
   class IScriptSetter {
   private:
@@ -17,23 +18,18 @@ namespace s3d::Lua {
     }
 
   public:
-    NamespaceRegister setNamespace(const String& namespaceName) {
-      auto arr = namespaceName.split(L'.');
-      NamespaceRegister regist;
-      if constexpr(std::is_same_v<std::remove_reference_t<decltype(getSolScript())>, sol::state>) {
-        regist = { getSolScript().create_named_table(arr.front().narrow()) };
+    template<typename T, typename std::enable_if_t<std::is_convertible_v<T, String>, std::nullptr_t> = nullptr>
+    NamespaceSetter setNamespace(const T& namespaceName) {
+      auto path = String(namespaceName).split(L'.');
+      sol::table table = getSolScript();
+      for (auto&& name : path) {
+        table = table.create_named(name.narrow());
       }
-      else {
-        regist = { getSolScript().create_named(arr.front().narrow()) };
-      }
-      for (auto&& i : step(1, arr.size() - 1)) {
-        regist = regist.setNamespace(arr[i]);
-      }
-      return regist;
+      return NamespaceSetter(table);
     }
 
     template<typename T>
-    Self& setClass(const String& className, const ClassRegister<T>& classRegister) {
+    Self& setClass(const String& className, const ClassSetter<T>& classRegister) {
       auto usertype = getSolScript().create_simple_usertype<T>();
       classRegister.applyCommand(std::ref(usertype));
       getSolScript().set_usertype(className.narrow(), usertype);
@@ -41,7 +37,7 @@ namespace s3d::Lua {
     }
 
     template<typename T>
-    ClassRegisterWithRAII<T> setClass(const String& className) {
+    ClassSetterWithRAII<T> setClass(const String& className) {
       return { className, getSolScript().create_simple_usertype<T>(), std::bind(&std::remove_reference_t<decltype(getSolScript())>::set_usertype<std::string, T>, std::ref(getSolScript()), std::placeholders::_1, std::placeholders::_2) };
     }
 

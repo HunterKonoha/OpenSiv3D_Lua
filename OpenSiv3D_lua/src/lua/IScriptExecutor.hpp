@@ -20,16 +20,6 @@ namespace s3d {
         return selfCast().getScript();
       }
 
-      template<typename T, typename ...Arg>
-      constexpr std::function<T(Arg...)> bindCoroutine(std::function<T(Arg...)>* ptr, Coroutine coro) {
-        if constexpr(std::is_same_v<T, void>) {
-          return [=](Arg... args) {coro.call(args...); };
-        }
-        else {
-          return [=](Arg... args) {return coro.call(args...).get<T>(); };
-        }
-      }
-
     protected:
       sol::protected_function getRawFunction(const String& functionName) {
         return getSolScript()[functionName.narrow()].get<sol::protected_function>();
@@ -75,7 +65,13 @@ namespace s3d {
 
       template<typename T>
       std::function<T> getCoroutine(const String& functionName) {
-        return bindCoroutine(static_cast<std::function<T>*>(nullptr), getRawCoroutine(functionName));
+        auto coro = getRawCoroutine(functionName);
+        if constexpr(std::is_same_v<T, void>) {
+          return [coro](auto&&... args) {coro.call(args...); };
+        }
+        else {
+          return [coro](auto&&... args) {return coro.call(args...).get<T>(); };
+        }
       }
 
       template<typename Ret, typename ...Arg>

@@ -6,37 +6,19 @@
 namespace s3d::Lua {
   class Class: public IScriptExecutor<Class> {
     friend class IScriptExecutor<Class>;
+    friend struct sol::stack::pusher<Class>;
+
   private:
     sol::table m_core;
 
-    sol::table& getScript() {
-      return m_core;
-    }
-
-    template<typename T, typename ...Arg>
-    constexpr std::function<T(Arg...)> addSelfArgumentFunction(std::function<T(Arg...)>* ptr, sol::protected_function func) {
-      if constexpr(std::is_same_v<T, void>) {
-        return [=](Arg... args) {func(m_core, args...); };
-      }
-      else {
-        return [=](Arg... args) {return func(m_core, args...); };
-      }
-    }
-
-    template<typename T, typename ...Arg>
-    constexpr std::function<T(Arg...)> addSelfArgumentCoroutine(std::function<T(Arg...)>* ptr, Coroutine func) {
-      if constexpr(std::is_same_v<T, void>) {
-        return [=](Arg... args)mutable {func.call(m_core, args...); };
-      }
-      else {
-        return [=](Arg... args)mutable {return func.call(m_core, args...).get<T>(); };
-      }
-    }
+    sol::table& getScript();
 
   public:
     Class(const sol::table& table);
     Class(const Class&) = default;
     Class(Class&&) = default;
+    Class& operator=(const Class&) = default;
+    Class& operator=(Class&&) = default;
 
 
     template<typename Result, typename ...Arg>
@@ -52,7 +34,13 @@ namespace s3d::Lua {
 
     template<typename T>
     std::function<T> getFunction(const String& functionName) {
-      return addSelfArgumentFunction(static_cast<std::function<T>*>(nullptr), getRawFunction(functionName));
+      auto func = getRawFunction(functionName);
+      if constexpr(std::is_same_v<T, void>) {
+        return [func, this](auto&&... args) {func(m_core, args...); };
+      }
+      else {
+        return [func, this](auto&&... args) {return func(m_core, args...); };
+      }
     }
 
     template<typename Ret, typename ...Arg>
@@ -68,7 +56,46 @@ namespace s3d::Lua {
 
     template<typename T>
     std::function<T> getCoroutine(const String& functionName) {
-      return addSelfArgumentCoroutine(static_cast<std::function<T>*>(nullptr), getRawCoroutine(functionName));
+      auto coro = getRawCoroutine(functionName);
+      if constexpr(std::is_same_v<T, void>) {
+        return [coro, this](auto&&... args)mutable {coro.call(m_core, args...); };
+      }
+      else {
+        return [coro, this](auto&&... args)mutable {return coro.call(m_core, args...); };
+      }
     }
   };
+}
+
+namespace sol {
+  template<>
+  struct lua_size<Lua::Class> : std::integral_constant<int, 1> {};
+
+  template<>
+  struct lua_type_of<Lua::Class> : std::integral_constant<sol::type, sol::type::table> {};
+
+  namespace stack {
+    template <>
+    struct checker<Lua::Class> {
+      template <typename Handler>
+      static bool check(lua_State* L, int index, Handler&& handler, record& tracking) {
+        return Lua::detail::checkStack<sol::table>(L, index, hanlder, tracking, 1);
+      }
+    };
+
+    template <>
+    struct getter<Lua::Class> {
+      static Lua::Class get(lua_State* L, int index, record& tracking) {
+        auto table = Lua::detail::getStack<sol::table>(L, index, tracking, 1);
+        return { table };
+      }
+    };
+
+    template <>
+    struct pusher<Lua::Class> {
+      static int push(lua_State* L, const Lua::Class& obj) {
+        return Lua::detail::pushStack(L, obj.m_core);
+      }
+    };
+  }
 }

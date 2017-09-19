@@ -30,6 +30,7 @@ namespace sol {
   template<typename T, typename Alloc>
   struct lua_type_of<Grid<T, Alloc>> : std::integral_constant<sol::type, sol::type::table> {};
 
+
   //スタックの出し入れをする際の特殊化
   namespace stack {
     //変換の際のスタックの変数の型チェック関数
@@ -37,7 +38,7 @@ namespace sol {
     struct checker<String> {
       template <typename Handler>
       static bool check(lua_State* L, int index, Handler&& handler, record& tracking) {
-        return  Lua::detail::checkStack<std::wstring>(L, index, handler, tracking, 1);
+        return  Lua::detail::checkStack<std::string>(L, index, handler, tracking, 1);
       }
     };
 
@@ -74,7 +75,13 @@ namespace sol {
           return CharacterSet::FromUTF8(obj.as<std::string>());
         }
         else {
-          return CharacterSet::FromUTF8(obj[sol::meta_function::to_string](obj).get<std::string>());
+          auto to_string = obj[sol::meta_function::to_string];
+          if (to_string.valid()) {
+            return CharacterSet::FromUTF8(obj[sol::meta_function::to_string](obj).get<std::string>());
+          }
+          else {
+            return CharacterSet::FromUTF8(obj.as<std::string>());
+          }
         }
       }
     };
@@ -156,7 +163,6 @@ namespace sol {
     template <typename T, typename Alloc>
     struct getter<Grid<T, Alloc>> {
       static Grid<T, Alloc> get(lua_State* L, int index, record& tracking) {
-        int absolute_index = lua_absindex(L, index);
         //sol::tableからArrayへの変換
         Grid<T, Alloc> ret;
         auto table = Lua::detail::getStack<sol::table>(L, index, tracking, 1);

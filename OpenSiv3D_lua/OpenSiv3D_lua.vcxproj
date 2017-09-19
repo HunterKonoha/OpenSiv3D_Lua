@@ -267,14 +267,14 @@
     <ClInclude Include="src\lua\Bind\PointBind.hpp" />
     <ClInclude Include="src\lua\Bind\Vec2Bind.h" />
     <ClInclude Include="src\lua\Class.hpp" />
-    <ClInclude Include="src\lua\ClassRegister.hpp" />
+    <ClInclude Include="src\lua\ClassSetter.hpp" />
     <ClInclude Include="src\lua\Coroutine.hpp" />
     <ClInclude Include="src\lua\GlobalScript.hpp" />
     <ClInclude Include="src\lua\IScriptExecutor.hpp" />
     <ClInclude Include="src\lua\IScriptLoader.hpp" />
     <ClInclude Include="src\lua\IScriptSetter.hpp" />
     <ClInclude Include="src\lua\IScriptState.hpp" />
-    <ClInclude Include="src\lua\NamespaceRegister.hpp" />
+    <ClInclude Include="src\lua\NamespaceSetter.hpp" />
     <ClInclude Include="src\lua\Script.hpp" />
     <ClInclude Include="src\lua\SolStack.hpp" />
     <ClInclude Include="src\lua\StackHelper.hpp" />

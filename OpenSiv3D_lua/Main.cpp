@@ -47,7 +47,7 @@ void Main() {
   Lua::GlobalScript.setClass<Test>(L"Test").function(L"TestFunc", &Test::TestFunc);
 
   Lua::GlobalScript.setClass(L"Circle",
-    Lua::ClassRegister<Circle>()
+    Lua::ClassSetter<Circle>()
     .constructor<Circle(double, double, double),Circle(const Point&,double)>()
     .value(L"x", &Circle::x)
     .value(L"y", &Circle::y)
@@ -87,6 +87,8 @@ void Main() {
   script_1.loadFromFile(L"lua_test_1.lua");
 
   Lua::Class test_class = script_1.createClass(L"TestClass", 10, 20);
+
+  test_class = script_1.getValue<Lua::Class>(L"testclass");
   
   Console << test_class.getFunction<String()>(L"getString")();
   Console << test_class.callFunction<int>(L"getInt");
@@ -95,11 +97,11 @@ void Main() {
   test_class.getFunction<void(void)>(L"empty")();
 
   for (auto&& i : step(10)) {
-    Console << test_class.callCoroutine<int>(L"coroutine", 1);
+    Console << test_class.callCoroutine<String>(L"coroutine", 1);
   }
 
   for (auto&& i : step(10)) {
-    Console << test_class.getCoroutine<int(int)>(L"coroutine")(1);
+    Console << test_class.getCoroutine<String(int)>(L"coroutine")(1);
   }
   
 
