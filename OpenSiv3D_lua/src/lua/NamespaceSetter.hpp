@@ -5,7 +5,6 @@
 
 namespace s3d {
   namespace Lua {
-
     class NamespaceSetter :public IScriptSetter<NamespaceSetter> {
       friend class IScriptSetter<NamespaceSetter>;
 

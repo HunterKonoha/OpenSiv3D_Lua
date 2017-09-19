@@ -1,4 +1,5 @@
 #include "Binding.hpp"
+#include "NamespaceSetter.hpp"
 #include "GlobalScript.hpp"
 #include "Bind/PointBind.hpp"
 #include "Bind/Vec2Bind.h"

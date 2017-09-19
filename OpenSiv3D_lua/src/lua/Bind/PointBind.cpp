@@ -3,7 +3,7 @@
 #include <Siv3D.hpp>
 
 void s3d::Lua::Binding::PointBind() {
-  ClassRegister<Point> point;
+  ClassSetter<Point> point;
   point.value(L"x", &Point::x)
     .value(L"y", &Point::y)
     .constructor<sol::types<>, sol::types<const Point&>, sol::types<int32, int32>>()

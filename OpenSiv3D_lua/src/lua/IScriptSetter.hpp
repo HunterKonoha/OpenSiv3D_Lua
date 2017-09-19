@@ -21,9 +21,15 @@ namespace s3d::Lua {
     template<typename T, typename std::enable_if_t<std::is_convertible_v<T, String>, std::nullptr_t> = nullptr>
     NamespaceSetter setNamespace(const T& namespaceName) {
       auto path = String(namespaceName).split(L'.');
-      sol::table table = getSolScript();
-      for (auto&& name : path) {
-        table = table.create_named(name.narrow());
+      sol::table table;
+      if constexpr(std::is_same_v<std::decay_t<decltype(getSolScript())>, sol::state>) {
+        table = getSolScript().create_named_table(path[0].narrow());
+      }
+      else {
+        table = getSolScript().create_named(path[0].narrow());
+      }
+      for (auto&& i : step(1, path.size() - 1)) {
+        table = table.create_named(path[i].narrow());
       }
       return NamespaceSetter(table);
     }
