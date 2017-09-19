@@ -6,6 +6,9 @@ namespace s3d::Lua {
   template<typename Self>
   class IScriptLoader {
   private:
+    Array<FilePath> m_filepath;
+
+  private:
     Self& selfCast() {
       return *static_cast<Self*>(this);
     }
@@ -32,7 +35,22 @@ namespace s3d::Lua {
         return pfr;
       };
       //luaスクリプト読み込み
+      m_filepath.push_back(path);
       return getSolState().script_file(path.narrow(), getSolScript(), error_func, sol::load_mode::any).valid();
+    }
+
+    const Array<FilePath>& getLoadFilePath()const {
+      return m_filepath;
+    }
+
+    bool reload() {
+      bool ret = true;
+      for (auto&& path : m_filepath) {
+        if (!loadFromFile(path)) {
+          ret = false;
+        }
+      }
+      return ret;
     }
   };
 }

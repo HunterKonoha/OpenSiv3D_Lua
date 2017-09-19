@@ -5,8 +5,8 @@
 #include <sol.hpp>
 
 #include "lua/SolStack.hpp"
-#include "lua/Class.hpp"
 #include "lua/NamespaceSetter.hpp"
+#include "lua/Class.hpp"
 #include "lua/ClassSetter.hpp"
 #include "lua/Coroutine.hpp"
 #include "lua/GlobalScript.hpp"

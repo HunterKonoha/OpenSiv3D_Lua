@@ -88,12 +88,17 @@ void Main() {
 
   Lua::Class test_class = script_1.createClass(L"TestClass", 10, 20);
 
-  test_class = script_1.getValue<Lua::Class>(L"testclass");
+  test_class = script_1.getValue<Lua::Class>(L"TestClass");
+
+  test_class.setFunction(L"getCpp", []() {return L"Hello"; });
+
+  test_class = script_1.createClass(L"TestClass", 10, 20);
   
   Console << test_class.getFunction<String()>(L"getString")();
   Console << test_class.callFunction<int>(L"getInt");
   Console << test_class.getFunction<int(int)>(L"getValue")(1);
   Console << test_class.callFunction<int>(L"getValue", 2);
+  Console << test_class.getFunction<String()>(L"getCpp")();
   test_class.getFunction<void(void)>(L"empty")();
 
   for (auto&& i : step(10)) {

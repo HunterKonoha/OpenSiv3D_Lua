@@ -2,10 +2,12 @@
 #include <Siv3D.hpp>
 #include <sol.hpp>
 #include "IScriptExecutor.hpp"
+#include "IScriptSetter.hpp"
 
 namespace s3d::Lua {
-  class Class: public IScriptExecutor<Class> {
+  class Class: public IScriptExecutor<Class>, public IScriptSetter<Class> {
     friend class IScriptExecutor<Class>;
+    friend class IScriptSetter<Class>;
     friend struct sol::stack::pusher<Class>;
 
   private:
