@@ -56,14 +56,28 @@ namespace s3d::Lua {
       return callMetaFunction<bool>(sol::meta_function::equal_to, obj);
     }
 
+    bool operator!=(const Class& obj)const {
+      return !(*this == obj);
+    }
+
     template<typename T>
     bool operator<(const T& obj)const {
       return callMetaFunction<bool>(sol::meta_function::less_than, obj);
     }
 
     template<typename T>
+    bool operator>(const T& obj)const {
+      return obj < *this;
+    }
+
+    template<typename T>
     bool operator<=(const T& obj)const {
       return callMetaFunction<bool>(sol::meta_function::less_than_or_equal_to, obj);
+    }
+
+    template<typename T>
+    bool operator>=(const T& obj)const {
+      return !(*this < obj);
     }
 
     template<typename Result, typename ...Arg>
