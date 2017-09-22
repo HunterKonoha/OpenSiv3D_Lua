@@ -20,6 +20,7 @@ namespace s3d {
 
     private:
       sol::environment& getScript();
+      const sol::environment& getScript()const;
     };
   }
 }

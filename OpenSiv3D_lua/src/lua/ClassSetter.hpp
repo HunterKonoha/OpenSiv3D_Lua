@@ -44,7 +44,7 @@ namespace s3d {
       }
 
       template<typename F>
-      ClassSetter& function(const String& functionName, F&& function) {
+      ClassSetter& function(const String& functionName, F&& function){
         m_func.emplace_back([=](auto ref) {ref.get().set(functionName.narrow(), function); });
         return *this;
       }

@@ -86,29 +86,25 @@ void Main() {
     .setValue(L"Default", FontStyle::Default);
   script_1.loadFromFile(L"lua_test_1.lua");
 
-  Lua::Class test_class = script_1.createClass(L"TestClass", 10, 20);
+  Lua::Class p_1 = script_1.createClass(L"Position", 100, 100);
+  Lua::Class p_2 = script_1.createClass(L"Position", 75, 75);
+  Lua::Class o = script_1.createClass(L"Position");
+  Lua::Class p_3 = p_1 + p_2;
+  Lua::Class p_4 = p_1 - p_2;
+  Lua::Class p_5 = p_1 * p_2;
+  Lua::Class p_6 = p_1 / p_2;
 
-  test_class = script_1.getValue<Lua::Class>(L"TestClass");
-
-  test_class.setFunction(L"getCpp", []() {return L"Hello"; });
-
-  test_class = script_1.createClass(L"TestClass", 10, 20);
-  
-  Console << test_class.getFunction<String()>(L"getString")();
-  Console << test_class.callFunction<int>(L"getInt");
-  Console << test_class.getFunction<int(int)>(L"getValue")(1);
-  Console << test_class.callFunction<int>(L"getValue", 2);
-  Console << test_class.getFunction<String()>(L"getCpp")();
-  test_class.getFunction<void(void)>(L"empty")();
-
-  for (auto&& i : step(10)) {
-    Console << test_class.callCoroutine<String>(L"coroutine", 1);
-  }
-
-  for (auto&& i : step(10)) {
-    Console << test_class.getCoroutine<String(int)>(L"coroutine")(1);
-  }
-  
+  Console << L"原点O:" << o.toString();
+  Console << L"　 P1:" << p_1.toString();
+  Console << L"　 P2:" << p_2.toString();
+  Console << L"　 P3:" << p_3.toString();
+  Console << L"　 P4:" << p_4.toString();
+  Console << L"　 P5:" << p_5.toString();
+  Console << L"　 P6:" << p_6.toString();
+  Console << L"P1_Len:" << p_1.length();
+  Console << L"P1==P2:" << (p_1 == p_2);
+  Console << L"P1<P2:" << (p_1 < p_2);
+  Console << L"P1<=P1:" << (p_1 <= p_1);
 
   auto mainfunc = script_1.getFunction<void(void)>(L"main");
   mainfunc();

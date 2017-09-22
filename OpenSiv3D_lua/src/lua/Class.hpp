@@ -5,7 +5,7 @@
 #include "IScriptSetter.hpp"
 
 namespace s3d::Lua {
-  class Class: public IScriptExecutor<Class>, public IScriptSetter<Class> {
+  class Class : public IScriptExecutor<Class>, public IScriptSetter<Class> {
     friend class IScriptExecutor<Class>;
     friend class IScriptSetter<Class>;
     friend struct sol::stack::pusher<Class>;
@@ -14,6 +14,7 @@ namespace s3d::Lua {
     sol::table m_core;
 
     sol::table& getScript();
+    const sol::table& getScript()const;
 
   public:
     Class(const sol::table& table);
@@ -22,9 +23,51 @@ namespace s3d::Lua {
     Class& operator=(const Class&) = default;
     Class& operator=(Class&&) = default;
 
+    template<typename T>
+    Class operator+(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::addition, obj) };
+    }
+
+    template<typename T>
+    Class operator-(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::subtraction, obj) };
+    }
+
+    Class operator-() const {
+      return { callMetaFunction<sol::table>(sol::meta_function::unary_minus) };
+    }
+
+    template<typename T>
+    Class operator*(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::multiplication, obj) };
+    }
+
+    template<typename T>
+    Class operator/(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::division, obj) };
+    }
+
+    template<typename T>
+    Class operator%(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::modulus, obj) };
+    }
+
+    bool operator==(const Class& obj)const {
+      return callMetaFunction<bool>(sol::meta_function::equal_to, obj);
+    }
+
+    template<typename T>
+    bool operator<(const T& obj)const {
+      return callMetaFunction<bool>(sol::meta_function::less_than, obj);
+    }
+
+    template<typename T>
+    bool operator<=(const T& obj)const {
+      return callMetaFunction<bool>(sol::meta_function::less_than_or_equal_to, obj);
+    }
 
     template<typename Result, typename ...Arg>
-    Result callFunction(const String& functionName, Arg&&... arg) {
+    Result callFunction(const String& functionName, Arg&&... arg) const {
       auto func = getRawFunction(functionName);
       if constexpr(std::is_same_v<Result, void>) {
         func(m_core, Lua::detail::makeHelper(arg)...);
@@ -35,7 +78,7 @@ namespace s3d::Lua {
     }
 
     template<typename T>
-    std::function<T> getFunction(const String& functionName) {
+    std::function<T> getFunction(const String& functionName) const {
       auto func = getRawFunction(functionName);
       if constexpr(std::is_same_v<T, void>) {
         return [func, this](auto&&... args) {func(m_core, args...); };
@@ -65,6 +108,40 @@ namespace s3d::Lua {
       else {
         return [coro, this](auto&&... args)mutable {return coro.call(m_core, args...); };
       }
+    }
+
+    template<typename Ret, typename ...Arg>
+    Ret callMetaFunction(sol::meta_function funcEnum, const Arg&... arg) const {
+      auto func = getRawFunction(funcEnum);
+      if constexpr(std::is_same_v<Ret, void>) {
+        func.call(m_core, arg...);
+      }
+      else {
+        return func.call(m_core, arg...).get<Ret>();
+      }
+    }
+
+    String toString() const {
+      return callMetaFunction<String>(sol::meta_function::to_string);
+    }
+
+    template<typename T>
+    Class pow(const T& obj) const {
+      return { callMetaFunction<sol::table>(sol::meta_function::power_of, obj) };
+    }
+
+    template<typename Ret = String, typename T>
+    Ret concat(const T& obj) const {
+      return { callMetaFunction<Ret>(sol::meta_function::concatenation, obj) };
+    }
+
+    double length() const {
+      return callMetaFunction<double>(sol::meta_function::length);
+    }
+
+    template<typename Ret, typename ...Arg>
+    Ret call(const Arg&... args)const {
+      return { callMetaFunction<Ret>(sol::meta_function::call_function, args...) };
     }
   };
 }

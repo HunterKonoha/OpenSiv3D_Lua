@@ -11,6 +11,7 @@ namespace s3d {
     protected:
       IScriptState();
       sol::state& getState();
+      const sol::state& getState()const;
 
     public:
       template<typename ...Arg>

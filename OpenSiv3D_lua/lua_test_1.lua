@@ -54,40 +54,52 @@ function f(arg)
     return "0"
 end
 
-TestClass = {}
+Position = {}
 
-function TestClass:getString()
-    return "String"
-end
-
-function TestClass:getInt()
-    return 100
-end
-
-function TestClass:getValue(number)
-    if number == 1 then
-        return self.value_1
-    elseif number == 2 then
-        return self.value_2
-    else 
-        return nil
+function Position.new(_x, _y)
+    local ret = {x = _x, y = _y}
+    if ret.x == nil then
+        ret.x = 0
     end
+    if ret.y == nil then
+        ret.y = 0
+    end
+    return setmetatable(ret, {__index = Position})
 end
 
-function TestClass:empty()
-
+function Position:__tostring()
+    return "(" .. self.x ..", " .. self.y .. ")"
 end
 
-function TestClass:coroutine(arg)
-    coroutine.yield(arg + 1)
-    coroutine.yield(arg + 2)
-    coroutine.yield(arg + 4)
-    return 0
+function Position:__add(obj)
+self.x = self.x + 10
+    return Position.new(self.x + obj.x, self.y + obj.y)
 end
 
-function TestClass.new(a, b)
-    local obj = {value_1 = a, value_2 = b}
-    return setmetatable(obj, {__index = TestClass})
+function Position:__sub(obj)
+    return Position.new(self.x - obj.x, self.y - obj.y)
 end
 
-testclass = TestClass.new(100, 200)
+function Position:__mul(obj)
+    return Position.new(self.x * obj.x, self.y * obj.y)
+end
+
+function Position:__div(obj)
+    return Position.new(self.x / obj.x, self.y / obj.y)
+end
+
+function Position:__len()
+    return math.sqrt(self.x ^ 2 + self.y ^ 2)
+end
+
+function Position:__eq(obj)
+    return self.x == obj.x and self.y == obj.y
+end
+
+function Position:__lt(obj)
+    return self.x < obj.x and self.y < obj.y
+end
+
+function Position:__le(obj)
+    return self.x <= obj.x and self.y <= obj.y
+end

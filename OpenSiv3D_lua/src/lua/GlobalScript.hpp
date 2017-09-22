@@ -18,6 +18,7 @@ namespace s3d {
 
       private:
         sol::state& getScript();
+        const sol::state& getScript()const;
       };
     }
 

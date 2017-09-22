@@ -16,13 +16,25 @@ namespace s3d {
         return *static_cast<Self*>(this);
       }
 
+      const Self& selfCast() const {
+        return *static_cast<const Self*>(this);
+      }
+
       decltype(auto) getSolScript() {
         return selfCast().getScript();
       }
 
+      decltype(auto) getSolScript() const {
+        return selfCast().getScript();
+      }
+
     protected:
-      sol::protected_function getRawFunction(const String& functionName) {
+      sol::protected_function getRawFunction(const String& functionName) const {
         return getSolScript()[functionName.narrow()].get<sol::protected_function>();
+      }
+
+      sol::protected_function getRawFunction(sol::meta_function func) const {
+        return getSolScript()[func].get<sol::protected_function>();
       }
 
       Coroutine getRawCoroutine(const String& functionName) {
@@ -42,13 +54,17 @@ namespace s3d {
         return getSolScript().valid();
       }
 
+      decltype(auto) operator[](const String& name) {
+        return getSolScript()[name.narrow()];
+      }
+
       template<typename T>
-      T getValue(const String& valueName) {
+      T getValue(const String& valueName) const{
         return getSolScript()[valueName.narrow()].get<T>();
       }
 
       template<typename Result, typename ...Arg>
-      Result callFunction(const String& functionName, Arg&&... arg) {
+      Result callFunction(const String& functionName, Arg&&... arg) const{
         auto func = getRawFunction(functionName);
         if constexpr(std::is_same_v<T, void>) {
           func(Lua::detail::makeHelper(arg)...);
@@ -59,7 +75,7 @@ namespace s3d {
       }
 
       template<typename T>
-      std::function<T> getFunction(const String& functionName) {
+      std::function<T> getFunction(const String& functionName) const{
         return static_cast<std::function<T>>(getRawFunction(functionName));
       }
 
@@ -86,7 +102,7 @@ namespace s3d {
       }
 
       template<typename ...Arg>
-      Class createClass(const String& className, const Arg&... arg) {
+      Class createClass(const String& className, const Arg&... arg) const{
         return { getSolScript()[className.narrow()]["new"](arg...).get<sol::table>()};
       }
     };

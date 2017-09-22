@@ -27,3 +27,7 @@ s3d::Lua::IScriptState::IScriptState() {
 sol::state & s3d::Lua::IScriptState::getState() {
   return *m_state;
 }
+
+const sol::state & s3d::Lua::IScriptState::getState() const {
+  return *m_state;
+}
