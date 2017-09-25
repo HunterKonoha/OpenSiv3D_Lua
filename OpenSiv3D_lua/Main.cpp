@@ -67,7 +67,11 @@ void Main() {
 
   script_1
     .setClass<Color>(L"Color")
-    .constructor<Color(const Color&), Color(), Color(Color&&),Color(double, double, double)>();
+    .constructor<Color(const Color&), Color(), Color(Color&&), Color(double, double, double), Color(double, double, double,double)>()
+    .bitFieldValue<0, 8>(L"r")
+    .bitFieldValue<8, 8>(L"g")
+    .bitFieldValue<16, 8>(L"b")
+    .bitFieldValue<24, 8>(L"a");
 
   script_1
     .setClass<ColorF>(L"ColorF")

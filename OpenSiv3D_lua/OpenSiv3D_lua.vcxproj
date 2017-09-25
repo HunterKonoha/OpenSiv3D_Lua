@@ -262,6 +262,7 @@
     <Media Include="example\test.mp3" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\lua\BitFieldAccessor.hpp" />
     <ClInclude Include="src\lua.hpp" />
     <ClInclude Include="src\lua\Binding.hpp" />
     <ClInclude Include="src\lua\Bind\PointBind.hpp" />

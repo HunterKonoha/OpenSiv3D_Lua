@@ -1,6 +1,7 @@
 #pragma once
 #include <Siv3D.hpp>
 #include <sol.hpp>
+#include "BitFieldAccessor.hpp"
 
 namespace s3d {
   namespace Lua {
@@ -33,11 +34,30 @@ namespace s3d {
             break;
 
           case s3d::Lua::RegisterOption::ReadOnly:
-            m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::readonly(memberValuePointer)); });
+            m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::readonly_property(memberValuePointer)); });
             break;
 
           case s3d::Lua::RegisterOption::WriteOnly:
             m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::writeonly_property(memberValuePointer)); });
+            break;
+        }
+        return *this;
+      }
+
+      template<std::size_t bitTarget = 0x0, std::size_t size = 0x1>
+      ClassSetter& bitFieldValue(const String& valueName, RegisterOption option = RegisterOption::Any) {
+        switch (option) {
+          default:
+          case s3d::Lua::RegisterOption::Any:
+            m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::property(BitFieldAccessor::read<T, bitTarget, size>, BitFieldAccessor::write<T, bitTarget, size>)); });
+            break;
+
+          case s3d::Lua::RegisterOption::ReadOnly:
+            m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::readonly_property(BitFieldAccessor::read<T, bitTarget, size>)); });
+            break;
+
+          case s3d::Lua::RegisterOption::WriteOnly:
+            m_func.emplace_back([=](auto ref) {ref.get().set(valueName.narrow(), sol::writeonly_property(BitFieldAccessor::write<T, bitTarget, size>)); });
             break;
         }
         return *this;
