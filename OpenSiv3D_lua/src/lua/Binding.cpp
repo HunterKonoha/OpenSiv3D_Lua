@@ -3,6 +3,7 @@
 #include "GlobalScript.hpp"
 #include "Bind/PointBind.hpp"
 #include "Bind/Vec2Bind.h"
+#include "Utility.hpp"
 #include <Siv3D.hpp>
 
 void s3d::Lua::Binding::All() {
@@ -22,12 +23,12 @@ void s3d::Lua::Binding::All() {
 void s3d::Lua::Binding::SystemBind() {
   GlobalScript
     .setNamespace(L"System")
-    .setFunction(L"Update", sol::overload(System::Update, []() {return System::Update(); }))
+    .setFunction(L"Update", makeOverload(System::Update, []() {return System::Update(); }))
     .setFunction(L"Exit", &System::Exit)
     .setFunction(L"SetExitEvent", &System::SetExitEvent)
     .setFunction(L"GetPreviousEvent", &System::GetPreviousEvent)
     .setFunction(L"DeltaTime", sol::overload(System::DeltaTime, []() {return System::DeltaTime(); }))
-    .setFunction(L"Sleep", sol::overload(sol::resolve<void(int32)>(&System::Sleep), sol::resolve<void(const MillisecondsF&)>(&System::Sleep)))
+    .setFunction(L"Sleep", sol::overload(solveFunctionPtr<void(int32)>(&System::Sleep), solveFunctionPtr<void(const MillisecondsF&)>(&System::Sleep)))
     .setFunction(L"FrameCount", &System::FrameCount)
     .setFunction(L"SetFrameCount", &System::SetFrameCount)
     .setFunction(L"LaunchBrowser", &System::LaunchBrowser)
@@ -56,8 +57,8 @@ void s3d::Lua::Binding::WindowBind() {
 
   GlobalScript
     .setNamespace(L"Window")
-    .setValue(L"DefaultClientSize", sol::readonly_property(Window::DefaultClientSize))
-    .setFunction(L"SetTitle", sol::resolve<void(const String&)>(&Window::SetTitle))
+    .setValue(L"DefaultClientSize", Window::DefaultClientSize, RegisterOption::ReadOnly)
+    .setFunction(L"SetTitle", solveFunctionPtr<void(const String&)>(&Window::SetTitle))
     .setFunction(L"GetState", &Window::GetState)
     .setFunction(L"Size", &Window::Size)
     .setFunction(L"Center", &Window::Center)
@@ -65,9 +66,9 @@ void s3d::Lua::Binding::WindowBind() {
     .setFunction(L"Height", &Window::Height)
     .setFunction(L"ClientRect", &Window::ClientRect)
     .setFunction(L"SetPos", &Window::SetPos)
-    .setFunction(L"SetPos", sol::overload(sol::resolve<bool(int32, int32, bool)>(&Window::Resize),
+    .setFunction(L"SetPos", makeOverload(solveFunctionPtr<bool(int32, int32, bool)>(&Window::Resize),
       [](int32 w, int32 h) {return Window::Resize(w, h); },
-      sol::resolve<bool(const s3d::Size&, bool)>(&Window::Resize),
+      solveFunctionPtr<bool(const s3d::Size&, bool)>(&Window::Resize),
       [](const s3d::Size& s) {return Window::Resize(s); }))
     .setFunction(L"SetBaseSize", &Window::SetBaseSize)
     .setFunction(L"BaseSize", &Window::BaseSize)

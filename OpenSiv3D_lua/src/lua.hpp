@@ -11,9 +11,12 @@
 #include "lua/Coroutine.hpp"
 #include "lua/GlobalScript.hpp"
 #include "lua/Script.hpp"
+#include "lua/Utility.hpp"
 
 namespace s3d {
   namespace Lua {
     using lib = sol::lib;
+    template<typename ...Arg>
+    using types = sol::types<Arg...>;
   }
 }

@@ -2,6 +2,7 @@
 #include <Siv3D.hpp>
 #include <sol.hpp>
 #include "ClassSetter.hpp"
+#include "RegisterOption.hpp"
 
 namespace s3d::Lua {
   class NamespaceSetter;
@@ -54,8 +55,23 @@ namespace s3d::Lua {
     }
 
     template<typename T>
-    Self& setValue(const String& valueName, const T& value) {
+    Self& setValue(const String& valueName, const T& value, RegisterOption option = RegisterOption::Any) {
       getSolScript()[valueName.narrow()].set(Lua::detail::makeHelper(value));
+
+      switch (option) {
+        default:
+        case s3d::Lua::RegisterOption::Any:
+          getSolScript()[valueName.narrow()].set(Lua::detail::makeHelper(value));
+          break;
+
+        case s3d::Lua::RegisterOption::ReadOnly:
+          getSolScript()[valueName.narrow()].set(sol::readonly_property(Lua::detail::makeHelper(value)));
+          break;
+
+        case s3d::Lua::RegisterOption::WriteOnly:
+          getSolScript()[valueName.narrow()].set(sol::writeonly_property(Lua::detail::makeHelper(value)));
+          break;
+      }
       return selfCast();
     }
 

@@ -1,4 +1,5 @@
 #include "Vec2Bind.h"
+#include "../Utility.hpp"
 #include "../GlobalScript.hpp"
 #include <Siv3D.hpp>
 
@@ -9,11 +10,11 @@ void s3d::Lua::Binding::Vec2Bind() {
     .value(L"x", &Vec2::x)
     .value(L"y", &Vec2::y)
     .constructor<sol::types<>, sol::types<const Vec2&>, sol::types<double, double>, sol::types<const Point&>>()
-    .metaFunction(sol::meta_function::unary_minus, sol::resolve<Vec2()const>(&Vec2::operator-))
-    .metaFunction(sol::meta_function::addition, sol::resolve<Vec2(const Vec2&)const>(&Vec2::operator+))
-    .metaFunction(sol::meta_function::subtraction, sol::resolve<Vec2(const Vec2&)const>(&Vec2::operator-))
-    .metaFunction(sol::meta_function::multiplication, sol::overload(sol::resolve<Vec2(const Vec2&)const>(&Vec2::operator*), sol::resolve<Vec2(double)const>(&Vec2::operator*)))
-    .metaFunction(sol::meta_function::division, sol::overload(sol::resolve<Vec2(const Vec2&)const>(&Vec2::operator/), sol::resolve<Vec2(double)const>(&Vec2::operator/)))
+    .metaFunction(sol::meta_function::unary_minus, solveFunctionPtr<Vec2()const>(&Vec2::operator-))
+    .metaFunction(sol::meta_function::addition, solveFunctionPtr<Vec2(const Vec2&)const>(&Vec2::operator+))
+    .metaFunction(sol::meta_function::subtraction, solveFunctionPtr<Vec2(const Vec2&)const>(&Vec2::operator-))
+    .metaFunction(sol::meta_function::multiplication, makeOverload(solveFunctionPtr<Vec2(const Vec2&)const>(&Vec2::operator*), solveFunctionPtr<Vec2(double)const>(&Vec2::operator*)))
+    .metaFunction(sol::meta_function::division, makeOverload(solveFunctionPtr<Vec2(const Vec2&)const>(&Vec2::operator/), solveFunctionPtr<Vec2(double)const>(&Vec2::operator/)))
     .metaFunction(sol::meta_function::equal_to, &Vec2::operator==)
     .metaFunction(sol::meta_function::to_string, [](const Vec2& v) {return Format(v); })
     .function(L"xx", &Vec2::xx)
@@ -21,9 +22,9 @@ void s3d::Lua::Binding::Vec2Bind() {
     .function(L"yx", &Vec2::yx)
     .function(L"yy", &Vec2::yy)
     .function(L"asPoint", &Vec2::asPoint)
-    .function(L"set", sol::overload(sol::resolve<Vec2&(double, double)>(&Vec2::set), sol::resolve<Vec2&(const Vec2&)>(&Vec2::set)))
-    .function(L"movedBy", sol::overload(sol::resolve<Vec2(double, double)const>(&Vec2::movedBy), sol::resolve<Vec2(const Vec2&)const>(&Vec2::movedBy)))
-    .function(L"moveBy", sol::overload(sol::resolve<Vec2&(double, double)>(&Vec2::moveBy), sol::resolve<Vec2&(const Vec2&)>(&Vec2::moveBy)))
+    .function(L"set", makeOverload(solveFunctionPtr<Vec2&(double, double)>(&Vec2::set), solveFunctionPtr<Vec2&(const Vec2&)>(&Vec2::set)))
+    .function(L"movedBy", makeOverload(solveFunctionPtr<Vec2(double, double)const>(&Vec2::movedBy), solveFunctionPtr<Vec2(const Vec2&)const>(&Vec2::movedBy)))
+    .function(L"moveBy", makeOverload(solveFunctionPtr<Vec2&(double, double)>(&Vec2::moveBy), solveFunctionPtr<Vec2&(const Vec2&)>(&Vec2::moveBy)))
     .function(L"clamp", &Vec2::clamp)
     .function(L"clamped", &Vec2::clamped)
     .function(L"isZero", &Vec2::isZero)
@@ -34,8 +35,8 @@ void s3d::Lua::Binding::Vec2Bind() {
     .function(L"lengthSq", &Vec2::lengthSq)
     .function(L"lengthInv", &Vec2::lengthInv)
     .function(L"setLength", &Vec2::setLength)
-    .function(L"distanceFrom", sol::overload(sol::resolve<double(double, double)const>(&Vec2::distanceFrom), sol::resolve<double(const Vec2&)const>(&Vec2::distanceFrom)))
-    .function(L"distanceFromSq", sol::overload(sol::resolve<double(double, double)const>(&Vec2::distanceFromSq), sol::resolve<double(const Vec2&)const>(&Vec2::distanceFromSq)))
+    .function(L"distanceFrom", makeOverload(solveFunctionPtr<double(double, double)const>(&Vec2::distanceFrom), solveFunctionPtr<double(const Vec2&)const>(&Vec2::distanceFrom)))
+    .function(L"distanceFromSq", makeOverload(solveFunctionPtr<double(double, double)const>(&Vec2::distanceFromSq), solveFunctionPtr<double(const Vec2&)const>(&Vec2::distanceFromSq)))
     .function(L"normalize", &Vec2::normalize)
     .function(L"normalized", &Vec2::normalized)
     .function(L"rotate", &Vec2::rotate)
@@ -43,7 +44,7 @@ void s3d::Lua::Binding::Vec2Bind() {
     .function(L"getAngle", &Vec2::getAngle)
     .function(L"projection", &Vec2::projection)
     .function(L"lerp", &Vec2::lerp)
-    .function(L"projection", sol::overload(&Vec2::intersects<Point>,
+    .function(L"projection", makeOverload(&Vec2::intersects<Point>,
       &Vec2::intersects<Vec2>,
       &Vec2::intersects<Line>,
       &Vec2::intersects<Rect>,

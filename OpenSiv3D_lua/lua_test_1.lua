@@ -43,6 +43,7 @@ function main()
         font(Cursor.Pos()):draw(20,400, ColorF.new(0.6))
         font(string.format("(%d, %d, %d, %d)", col.r, col.g, col.b, col.a)):draw(20,340, ColorF.new(0.6))
         textureCat:resize(80):draw(540, 380)
+        Print(true)
 		Circle
             :new(Cursor.Pos(), 60)
             :draw(MouseL:pressed() and Palette.Black or ColorF.new(1, 0, 0, 0.5));

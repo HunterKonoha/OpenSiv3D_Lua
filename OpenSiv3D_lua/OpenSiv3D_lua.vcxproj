@@ -276,9 +276,11 @@
     <ClInclude Include="src\lua\IScriptSetter.hpp" />
     <ClInclude Include="src\lua\IScriptState.hpp" />
     <ClInclude Include="src\lua\NamespaceSetter.hpp" />
+    <ClInclude Include="src\lua\RegisterOption.hpp" />
     <ClInclude Include="src\lua\Script.hpp" />
     <ClInclude Include="src\lua\SolStack.hpp" />
     <ClInclude Include="src\lua\StackHelper.hpp" />
+    <ClInclude Include="src\lua\Utility.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

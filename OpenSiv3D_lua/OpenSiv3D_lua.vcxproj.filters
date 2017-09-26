@@ -246,5 +246,11 @@
     <ClInclude Include="src\lua\BitFieldAccessor.hpp">
       <Filter>lua</Filter>
     </ClInclude>
+    <ClInclude Include="src\lua\Utility.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\RegisterOption.hpp">
+      <Filter>lua</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

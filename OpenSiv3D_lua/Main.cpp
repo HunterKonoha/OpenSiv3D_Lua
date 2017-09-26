@@ -35,7 +35,7 @@ void Main() {
 
   // script_1.setClass<Point>(L"Point", sol::constructors<sol::types<>, sol::types<int, int>>());
   Lua::GlobalScript
-    .setFunction(L"Print", sol::overload(PrintPoint, PrintString, PrintBool, Print_impl<double>))
+    .setFunction(L"Print", sol::overload(&PrintPoint, &PrintString, &PrintBool, &Print_impl<double>))
     .setValue(L"str", &str);
 
   // script_1.setFunction(L"Print", sol::overload(PrintPoint, PrintString, PrintBool, Print_impl<double>));

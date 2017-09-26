@@ -2,16 +2,10 @@
 #include <Siv3D.hpp>
 #include <sol.hpp>
 #include "BitFieldAccessor.hpp"
+#include "RegisterOption.hpp"
 
 namespace s3d {
   namespace Lua {
-
-    enum class RegisterOption {
-      Any,
-      ReadOnly,
-      WriteOnly
-    };
-
     template<typename T>
     class ClassSetter {
     private:
