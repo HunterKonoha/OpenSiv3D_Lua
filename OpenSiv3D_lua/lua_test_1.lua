@@ -39,7 +39,7 @@ function main()
     Graphics.SetBackground(ColorF.new(0.8, 0.9, 1.0))
     
     while System.Update() do
-        font("Hello, Siv3D!🐣"):drawAt(Window.Center(), Palette.Black)
+        --font("Hello, Siv3D!🐣"):drawAt(Window.Center(), Palette.Black)
         font(Cursor.Pos()):draw(20,400, ColorF.new(0.6))
         font(string.format("(%d, %d, %d, %d)", col.r, col.g, col.b, col.a)):draw(20,340, ColorF.new(0.6))
         textureCat:resize(80):draw(540, 380)

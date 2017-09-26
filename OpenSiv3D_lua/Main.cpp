@@ -111,5 +111,7 @@ void Main() {
   Console << L"P1<=P1:" << (p_1 <= p_1);
 
   auto mainfunc = script_1.getFunction<void(void)>(L"main");
+  int a = Console.read<int>();
+  script_1.reload();
   mainfunc();
 }

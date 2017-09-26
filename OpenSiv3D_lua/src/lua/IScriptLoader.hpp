@@ -35,7 +35,9 @@ namespace s3d::Lua {
         return pfr;
       };
       //luaスクリプト読み込み
-      m_filepath.push_back(path);
+      if (!m_filepath.include(path)) {
+        m_filepath.push_back(path);
+      }
       return getSolState().script_file(path.narrow(), getSolScript(), error_func, sol::load_mode::any).valid();
     }
 
