@@ -56,8 +56,6 @@ namespace s3d::Lua {
 
     template<typename T>
     Self& setValue(const String& valueName, const T& value, RegisterOption option = RegisterOption::Any) {
-      getSolScript()[valueName.narrow()].set(Lua::detail::makeHelper(value));
-
       switch (option) {
         default:
         case s3d::Lua::RegisterOption::Any:
