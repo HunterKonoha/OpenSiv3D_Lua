@@ -10,6 +10,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Binding.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Bind\PointBind.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Bind\Vec2Bind.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Class.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\GlobalScript.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\IScriptState.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Script.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\OpenSiv3D_lua\include\lua.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Binding.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Bind\PointBind.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Bind\Vec2Bind.h" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\BitFieldAccessor.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Class.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\ClassSetter.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Coroutine.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\GlobalScript.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptExecutor.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptLoader.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptSetter.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptState.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\NamespaceSetter.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\RegisterOption.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Script.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\SolStack.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\StackHelper.hpp" />
+    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Utility.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{396BF707-68A5-48BD-BF52-4EFE99C03D8E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -44,7 +74,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\OpenSiv3D_lua\include;..\OpenSiv3D_lua\src\lua;..\Dependencies\OpenSiv3D\include;..\Dependencies\sol2\;..\Dependencies\lua\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\OpenSiv3D_lua\include;..\OpenSiv3D_lua\src\lua;..\Dependencies\OpenSiv3D\Siv3D\include;..\Dependencies\sol2\;..\Dependencies\lua\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
     <OutDir>..\OpenSiv3D_lua\lib\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
@@ -52,7 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\OpenSiv3D_lua\include;..\OpenSiv3D_lua\src\lua;..\Dependencies\OpenSiv3D\include;..\Dependencies\sol2\;..\Dependencies\lua\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\OpenSiv3D_lua\include;..\OpenSiv3D_lua\src\lua;..\Dependencies\OpenSiv3D\Siv3D\include;..\Dependencies\sol2\;..\Dependencies\lua\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <OutDir>..\OpenSiv3D_lua\lib\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
@@ -117,83 +147,6 @@
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\lua\Binding.cpp" />
-    <ClCompile Include="src\lua\Bind\PointBind.cpp" />
-    <ClCompile Include="src\lua\Bind\Vec2Bind.cpp" />
-    <ClCompile Include="src\lua\Class.cpp" />
-    <ClCompile Include="src\lua\GlobalScript.cpp" />
-    <ClCompile Include="src\lua\IScriptState.cpp" />
-    <ClCompile Include="src\lua\Script.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="engine\texture\box-shadow\128.png" />
-    <Image Include="engine\texture\box-shadow\16.png" />
-    <Image Include="engine\texture\box-shadow\256.png" />
-    <Image Include="engine\texture\box-shadow\32.png" />
-    <Image Include="engine\texture\box-shadow\64.png" />
-    <Image Include="engine\texture\box-shadow\8.png" />
-    <Image Include="example\siv3d-kun.png" />
-    <Image Include="example\windmill.png" />
-    <Image Include="Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="engine\engine.txt" />
-    <Text Include="engine\font\fontawesome\LICENSE_OFL.txt" />
-    <Text Include="engine\font\noto\LICENSE_OFL.txt" />
-    <Text Include="example\LICENSE.txt" />
-    <Text Include="example\script.txt" />
-    <Text Include="example\test.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="engine\font\fontawesome\FontAwesome.otf.zst" />
-    <None Include="engine\font\mplus\LICENSE_E" />
-    <None Include="engine\font\mplus\mplus-1p-black.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-bold.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-heavy.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-light.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-medium.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-regular.ttf.zst" />
-    <None Include="engine\font\mplus\mplus-1p-thin.ttf.zst" />
-    <None Include="engine\font\noto\NotoColorEmoji.ttf.zst" />
-    <None Include="engine\font\noto\NotoEmoji-Regular.ttf.zst" />
-    <None Include="engine\shader\line_dot.ps" />
-    <None Include="engine\shader\line_round_dot.ps" />
-    <None Include="engine\shader\shape.ps" />
-    <None Include="engine\shader\sprite.ps" />
-    <None Include="engine\shader\sprite.vs" />
-    <None Include="engine\shader\sprite_sdf.ps" />
-    <None Include="example\empty.bin" />
-    <None Include="example\test.ini" />
-    <None Include="example\test.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="example\test.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\lua\BitFieldAccessor.hpp" />
-    <ClInclude Include="src\lua.hpp" />
-    <ClInclude Include="src\lua\Binding.hpp" />
-    <ClInclude Include="src\lua\Bind\PointBind.hpp" />
-    <ClInclude Include="src\lua\Bind\Vec2Bind.h" />
-    <ClInclude Include="src\lua\Class.hpp" />
-    <ClInclude Include="src\lua\ClassSetter.hpp" />
-    <ClInclude Include="src\lua\Coroutine.hpp" />
-    <ClInclude Include="src\lua\GlobalScript.hpp" />
-    <ClInclude Include="src\lua\IScriptExecutor.hpp" />
-    <ClInclude Include="src\lua\IScriptLoader.hpp" />
-    <ClInclude Include="src\lua\IScriptSetter.hpp" />
-    <ClInclude Include="src\lua\IScriptState.hpp" />
-    <ClInclude Include="src\lua\NamespaceSetter.hpp" />
-    <ClInclude Include="src\lua\RegisterOption.hpp" />
-    <ClInclude Include="src\lua\Script.hpp" />
-    <ClInclude Include="src\lua\SolStack.hpp" />
-    <ClInclude Include="src\lua\StackHelper.hpp" />
-    <ClInclude Include="src\lua\Utility.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

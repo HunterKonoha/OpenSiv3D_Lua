@@ -3,6 +3,8 @@
 #include <Siv3D.hpp>
 
 void s3d::Lua::Binding::PointBind() {
+    // meta_functionをなくす
+    // overloadをなくして，関数ポインタを投げる感じに
   ClassSetter<Point> point;
   point.value(L"x", &Point::x)
     .value(L"y", &Point::y)
