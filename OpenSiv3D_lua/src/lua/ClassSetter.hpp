@@ -1,6 +1,6 @@
 #pragma once
 #include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include "BitFieldAccessor.hpp"
 #include "RegisterOption.hpp"
 
@@ -9,7 +9,7 @@ namespace s3d {
     template<typename T>
     class ClassSetter {
     private:
-      Array<std::function<void(std::reference_wrapper<sol::simple_usertype<T>>)>> m_func;
+      Array<std::function<void(std::reference_wrapper<sol::usertype<T>>)>> m_func;
 
     public:
       template<typename ...Arg>
@@ -87,22 +87,22 @@ namespace s3d {
         return *this;
       }
 
-      void applyCommand(std::reference_wrapper<sol::simple_usertype<T>> userType)const {
-        m_func.each([&](auto& func) {func(userType); });
+      void applyCommand(std::reference_wrapper<sol::usertype<T>> userType)const {
+        m_func.each([=](const auto& func) {func(userType); });
       }
     };
 
     template<typename T>
     class ClassSetterWithRAII :public ClassSetter<T> {
     private:
-      sol::simple_usertype<T> m_usertype;
-      std::function<void(std::string, sol::simple_usertype<T>&)> m_register;
+      sol::usertype<T> m_usertype;
+      std::function<void(std::string, sol::usertype<T>&)> m_register;
       String m_classname;
       bool m_load = false;
 
     public:
-      ClassSetterWithRAII(const String& className, sol::simple_usertype<T> userType, const std::function<void(std::string, sol::simple_usertype<T>&)>& func)
-        :m_usertype(std::move(userType)), m_register(func), m_classname(className) {
+      ClassSetterWithRAII(const String& className, sol::usertype<T> userType)
+        :m_usertype(std::move(userType)), m_classname(className) {
 
       }
 
@@ -116,8 +116,8 @@ namespace s3d {
       }
 
       void registerClass() {
-        applyCommand(std::ref(m_usertype));
-        m_register(m_classname.narrow(), m_usertype);
+        this->applyCommand(std::ref(m_usertype));
+        // m_register(m_classname.narrow(), m_usertype);
         m_load = true;
       }
     };

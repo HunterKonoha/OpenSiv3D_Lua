@@ -1,5 +1,7 @@
 #include "IScriptState.hpp"
 #include "Binding.hpp"
+#include <Siv3D/Unicode.hpp>
+#include <Siv3D/Logger.hpp>
 
 Optional<sol::state> s3d::Lua::IScriptState::m_state = none;
 
@@ -7,10 +9,10 @@ Optional<sol::state> s3d::Lua::IScriptState::m_state = none;
 namespace s3d::Lua::detail {
   inline int atPanic(lua_State* l) {
     try {
-      return sol::detail::default_at_panic(l);
+      return sol::default_at_panic(l);
     }
     catch (sol::error& err) {
-      Log << CharacterSet::Widen(err.what());
+      Logger << s3d::Unicode::Widen(err.what());
       throw err;
     }
   }
@@ -20,7 +22,7 @@ s3d::Lua::IScriptState::IScriptState() {
   if (!m_state.has_value()) {
     m_state = sol::state{};
     m_state->set_panic(&detail::atPanic);
-    Binding::All();
+    // Binding::All();
   }
 }
 

@@ -1,5 +1,7 @@
 #pragma once
-#include <sol.hpp>
+#include <Siv3D/Array.hpp>
+#include <Siv3D/Grid.hpp>
+#include <sol/sol.hpp>
 
 //sol内部でstd::unordered_map やstd::vectorの特殊化がされており、ArrayやHashMapもsolの特殊化に引っかかるため、ヘルパを経由する
 namespace s3d {
@@ -22,10 +24,10 @@ namespace s3d {
         return { arr };
       }
 
-      template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+      /*template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
       detail::SpecializationHelper<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> makeHelper(const HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>& map) {
         return { map };
-      }
+      }*/
 
       template<typename T, typename Alloc>
       detail::SpecializationHelper<Grid<T, Alloc>> makeHelper(const Grid<T, Alloc>& arr) {
@@ -81,24 +83,24 @@ namespace s3d {
         }
       }
 
-      //sol::tableからHashMapへ変換する関数
-      template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
-      void tableGetter(HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>& map, const sol::table& table) {
-        map.reserve(table.size());
-        Key key;
-        T value;
-        for (auto&& pair : table) {
-          tableGetter(key, pair.first);
-          //valueが配列の時は、再帰的に処理を行うため、テーブルの内部がテーブルかどうかで分岐する
-          if (pair.second.get_type() == sol::type::table) {
-            tableGetter(value, pair.second.as<sol::table>());
-          }
-          else {
-            tableGetter(value, pair.second);
-          }
-          map[key] = value;
-        }
-      }
+      ////sol::tableからHashMapへ変換する関数
+      //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+      //void tableGetter(HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>& map, const sol::table& table) {
+      //  map.reserve(table.size());
+      //  Key key;
+      //  T value;
+      //  for (auto&& pair : table) {
+      //    tableGetter(key, pair.first);
+      //    //valueが配列の時は、再帰的に処理を行うため、テーブルの内部がテーブルかどうかで分岐する
+      //    if (pair.second.get_type() == sol::type::table) {
+      //      tableGetter(value, pair.second.as<sol::table>());
+      //    }
+      //    else {
+      //      tableGetter(value, pair.second);
+      //    }
+      //    map[key] = value;
+      //  }
+      //}
 
       //valueに値を代入する再帰関数の末尾
       template<typename T>
@@ -107,15 +109,15 @@ namespace s3d {
       }
 
       //HashMapからtableへ変換する関数
-      template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy, typename Table>
-      void tableSetter(lua_State* l, const HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>& map, Table& table) {
-        table = sol::table(l, sol::new_table{ 0 });
-        for (auto&& pair : map) {
-          auto proxy = table[pair.first];
-          //内部の型が配列でも変換できるように再帰する
-          tableSetter(l, pair.second, proxy);
-        }
-      }
+      //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy, typename Table>
+      //void tableSetter(lua_State* l, const HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>& map, Table& table) {
+      //  table = sol::table(l, sol::new_table{ 0 });
+      //  for (auto&& pair : map) {
+      //    auto proxy = table[pair.first];
+      //    //内部の型が配列でも変換できるように再帰する
+      //    tableSetter(l, pair.second, proxy);
+      //  }
+      // }
 
       //Arrayからtableへ変換する関数
       template<typename T, typename Alloc, typename Table>
@@ -159,7 +161,7 @@ namespace s3d {
 
       //luaのスタックへヘルパクラスの値を積む関数
       template<typename T>
-      inline int pushStack(lua_State* l, const SpecializationHelper<T>& helper) {
+      inline int pushStack(lua_State* l, const detail::SpecializationHelper<T>& helper) {
         //Tからsol::tableへの変換
         const auto& value = helper.value;
         sol::table table;

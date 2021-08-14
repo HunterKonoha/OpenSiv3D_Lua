@@ -1,11 +1,11 @@
 #pragma once
 #include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include "IScriptSetter.hpp"
 
 namespace s3d {
   namespace Lua {
-    class NamespaceSetter :public IScriptSetter<NamespaceSetter> {
+    class NamespaceSetter :public s3d::Lua::IScriptSetter<s3d::Lua::NamespaceSetter> {
       friend class IScriptSetter<NamespaceSetter>;
 
     private:

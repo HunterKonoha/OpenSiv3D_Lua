@@ -1,6 +1,6 @@
 #pragma once
 #include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include "SolStack.hpp"
 
 namespace s3d {

@@ -1,6 +1,5 @@
 #pragma once
-#include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 
 namespace s3d::Lua {
   template<typename ...Arg>
@@ -35,6 +34,6 @@ namespace s3d::Lua {
 
   template<typename... Sig, typename F, sol::meta::disable<std::is_function<sol::meta::unqualified_t<F>>> = sol::meta::enabler>
   inline constexpr auto solveFunctionPtr(F&& f) {
-    return sol::resolve(mem_ptr);
+    return sol::resolve(f);
   }
 }

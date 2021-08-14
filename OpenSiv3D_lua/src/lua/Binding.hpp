@@ -1,4 +1,7 @@
 #pragma once
+
+#if false
+
 namespace s3d {
   namespace Lua {
     namespace Binding {
@@ -16,3 +19,5 @@ namespace s3d {
     }
   }
 }
+
+#endif

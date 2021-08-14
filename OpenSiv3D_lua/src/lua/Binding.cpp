@@ -6,6 +6,8 @@
 #include "Utility.hpp"
 #include <Siv3D.hpp>
 
+#if false
+
 void s3d::Lua::Binding::All() {
   SystemBind();
   WindowBind();
@@ -22,7 +24,7 @@ void s3d::Lua::Binding::All() {
 
 void s3d::Lua::Binding::SystemBind() {
   GlobalScript
-    .setNamespace(L"System")
+    //.setNamespace(L"System")
     .setFunction(L"Update", makeOverload(System::Update, []() {return System::Update(); }))
     .setFunction(L"Exit", &System::Exit)
     .setFunction(L"SetExitEvent", &System::SetExitEvent)
@@ -150,3 +152,5 @@ void s3d::Lua::Binding::ShapeBind() {
   PointBind();
   Vec2Bind();
 }
+
+#endif

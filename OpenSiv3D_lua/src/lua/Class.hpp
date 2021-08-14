@@ -1,6 +1,6 @@
 #pragma once
 #include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include "IScriptExecutor.hpp"
 #include "IScriptSetter.hpp"
 
@@ -8,7 +8,7 @@ namespace s3d::Lua {
   class Class : public IScriptExecutor<Class>, public IScriptSetter<Class> {
     friend class IScriptExecutor<Class>;
     friend class IScriptSetter<Class>;
-    friend struct sol::stack::pusher<Class>;
+    //friend struct sol::stack::pusher<Class>;
 
   private:
     sol::table m_core;
@@ -102,27 +102,27 @@ namespace s3d::Lua {
       }
     }
 
-    template<typename Ret, typename ...Arg>
-    Ret callCoroutine(const String& functionName, const Arg&... arg) {
-      auto coro = getRawCoroutine(functionName);
-      if constexpr(std::is_same_v<Ret, void>) {
-        coro.call(m_core, arg...);
-      }
-      else {
-        return coro.call(m_core, arg...).get<Ret>();
-      }
-    }
+    //template<typename Ret, typename ...Arg>
+    //Ret callCoroutine(const String& functionName, const Arg&... arg) {
+    //  auto coro = getRawCoroutine(functionName);
+    //  if constexpr(std::is_same_v<Ret, void>) {
+    //    coro.call(m_core, arg...);
+    //  }
+    //  else {
+    //    return coro.call(m_core, arg...).get<Ret>();
+    //  }
+    //}
 
-    template<typename T>
-    std::function<T> getCoroutine(const String& functionName) {
-      auto coro = getRawCoroutine(functionName);
-      if constexpr(std::is_same_v<T, void>) {
-        return [coro, this](auto&&... args)mutable {coro.call(m_core, args...); };
-      }
-      else {
-        return [coro, this](auto&&... args)mutable {return coro.call(m_core, args...); };
-      }
-    }
+    //template<typename T>
+    //std::function<T> getCoroutine(const String& functionName) {
+    //  auto coro = getRawCoroutine(functionName);
+    //  if constexpr(std::is_same_v<T, void>) {
+    //    return [coro, this](auto&&... args)mutable {coro.call(m_core, args...); };
+    //  }
+    //  else {
+    //    return [coro, this](auto&&... args)mutable {return coro.call(m_core, args...); };
+    //  }
+    //}
 
     template<typename Ret, typename ...Arg>
     Ret callMetaFunction(sol::meta_function funcEnum, const Arg&... arg) const {
@@ -167,7 +167,7 @@ namespace sol {
   template<>
   struct lua_type_of<Lua::Class> : std::integral_constant<sol::type, sol::type::table> {};
 
-  namespace stack {
+ /* namespace stack {
     template <>
     struct checker<Lua::Class> {
       template <typename Handler>
@@ -190,5 +190,5 @@ namespace sol {
         return Lua::detail::pushStack(L, obj.m_core);
       }
     };
-  }
+  }*/
 }

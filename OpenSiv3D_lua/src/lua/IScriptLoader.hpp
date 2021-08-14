@@ -1,6 +1,6 @@
 #pragma once
 #include <Siv3D.hpp>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 
 namespace s3d::Lua {
   template<typename Self>
@@ -23,15 +23,16 @@ namespace s3d::Lua {
 
   public:
     bool loadFromFile(const FilePath& path) {
+        using namespace s3d::Literals::FormatLiterals;
       //読み込みエラーのコールバック関数
       auto error_func = [](lua_State* L, sol::protected_function_result pfr) {
         //どの種類のエラーか取得
-        String error = L"{} error"_fmt(sol::to_string(pfr.status()));
+        String error = U"{} error"_fmt(sol::to_string(pfr.status()));
         //積まれているスタックが文字列なら取得して、エラーメッセージとして処理
         if (sol::type_of(L, pfr.stack_index()) == sol::type::string) {
-          error += L":{}"_fmt(sol::stack::get<std::wstring>(L, pfr.stack_index()));
+          error += U":{}"_fmt(sol::stack::get<std::wstring>(L, pfr.stack_index()));
         }
-        Log << error;
+        Logger << error;
         return pfr;
       };
       //luaスクリプト読み込み

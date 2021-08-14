@@ -1,8 +1,9 @@
 #pragma once
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include <Siv3D.hpp>
 #include "StackHelper.hpp"
 
+/*
 namespace sol {
   //スタックを専有するサイズを指定
   template <>
@@ -11,8 +12,8 @@ namespace sol {
   template<typename T, typename Alloc>
   struct lua_size<Array<T, Alloc>> : std::integral_constant<int, 1> {};
 
-  template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
-  struct lua_size<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> : std::integral_constant<int, 1> {};
+  //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+  //struct lua_size<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> : std::integral_constant<int, 1> {};
 
   template<typename T, typename Alloc>
   struct lua_size<Grid<T, Alloc>> : std::integral_constant<int, 1> {};
@@ -24,8 +25,8 @@ namespace sol {
   template<typename T, typename Alloc>
   struct lua_type_of<Array<T, Alloc>> : std::integral_constant<sol::type, sol::type::table> {};
 
-  template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
-  struct lua_type_of<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> : std::integral_constant<sol::type, sol::type::table> {};
+  //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+  //struct lua_type_of<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> : std::integral_constant<sol::type, sol::type::table> {};
 
   template<typename T, typename Alloc>
   struct lua_type_of<Grid<T, Alloc>> : std::integral_constant<sol::type, sol::type::table> {};
@@ -50,13 +51,13 @@ namespace sol {
       }
     };
 
-    template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
-    struct checker<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>, sol::type::table> {
-      template <typename Handler>
-      static bool check(lua_State* L, int index, Handler&& handler, record& tracking) {
-        return Lua::detail::checkStack<sol::table>(L, index, hanlder, tracking, 1);
-      }
-    };
+    //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+    //struct checker<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>, sol::type::table> {
+    //  template <typename Handler>
+    //  static bool check(lua_State* L, int index, Handler&& handler, record& tracking) {
+    //    return Lua::detail::checkStack<sol::table>(L, index, hanlder, tracking, 1);
+    //  }
+    //};
 
     template <typename T, typename Alloc>
     struct checker<Grid<T, Alloc>, sol::type::table> {
@@ -149,16 +150,16 @@ namespace sol {
       }
     };
 
-    template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
-    struct getter<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> {
-      static HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy> get(lua_State* L, int index, record& tracking) {
-        //sol::tableからHashMapへの変換
-        HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy> ret;
-        auto table = Lua::detail::getStack<sol::table>(L, index, tracking, 1);
-        Lua::detail::tableGetter(ret, table);
-        return ret;
-      }
-    };
+    //template<class Key, class T, class Hash, class KeyEqual, class Alloc, unsigned int NeighborhoodSize, bool StoreHash, class GrowthPolicy>
+    //struct getter<HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy>> {
+    //  static HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy> get(lua_State* L, int index, record& tracking) {
+    //    //sol::tableからHashMapへの変換
+    //    HashMap<Key, T, Hash, KeyEqual, Alloc, NeighborhoodSize, StoreHash, GrowthPolicy> ret;
+    //    auto table = Lua::detail::getStack<sol::table>(L, index, tracking, 1);
+    //    Lua::detail::tableGetter(ret, table);
+    //    return ret;
+    //  }
+    //};
 
     template <typename T, typename Alloc>
     struct getter<Grid<T, Alloc>> {
@@ -201,3 +202,5 @@ namespace sol {
     };
   }
 }
+
+*/
