@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenSiv3D_lua", "OpenSiv3D_lua.vcxproj", "{396BF707-68A5-48BD-BF52-4EFE99C03D8E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua-Test", "Lua-Test.vcxproj", "{A1F990E6-A3B7-4732-A6B9-3A0D1F8E2287}"
+	ProjectSection(ProjectDependencies) = postProject
+		{396BF707-68A5-48BD-BF52-4EFE99C03D8E} = {396BF707-68A5-48BD-BF52-4EFE99C03D8E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

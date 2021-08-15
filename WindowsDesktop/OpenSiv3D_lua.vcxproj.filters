@@ -9,90 +9,51 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="src\Bind">
-      <UniqueIdentifier>{defce8bf-421c-4626-85a3-cfa856aacfb3}</UniqueIdentifier>
+    <Filter Include="include\LuaForOpenSiv3D">
+      <UniqueIdentifier>{6b0deeb7-47d9-4f60-8aa6-547c349cacdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Environment">
+      <UniqueIdentifier>{ef67f2f9-1dce-4fa3-8da8-2be4d881f68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LuaForOpenSiv3D">
+      <UniqueIdentifier>{506d18d4-d8bf-4813-bbe9-b25d048f5c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Environment\detail">
+      <UniqueIdentifier>{30397c45-236f-4a84-ad14-78e56abe3177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LuaForOpenSiv3D\Environment">
+      <UniqueIdentifier>{d436bfe9-1503-48a3-bdbc-df21be16ea5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Binding.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Class.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\GlobalScript.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\IScriptState.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Script.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Bind\PointBind.cpp">
-      <Filter>src\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OpenSiv3D_lua\src\lua\Bind\Vec2Bind.cpp">
-      <Filter>src\Bind</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Binding.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\BitFieldAccessor.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Class.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\ClassSetter.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Coroutine.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\GlobalScript.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptExecutor.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptLoader.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptSetter.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\IScriptState.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\NamespaceSetter.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\RegisterOption.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Script.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\SolStack.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\StackHelper.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Utility.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\include\lua.hpp">
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Bind\PointBind.hpp">
-      <Filter>src\Bind</Filter>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\LibraryLinker.h">
+      <Filter>include\LuaForOpenSiv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\OpenSiv3D_lua\src\lua\Bind\Vec2Bind.h">
-      <Filter>src\Bind</Filter>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\IEnvironment.h">
+      <Filter>include\LuaForOpenSiv3D\Environment</Filter>
     </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\GlobalEnvironment.h">
+      <Filter>include\LuaForOpenSiv3D\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\InternalStrings.h">
+      <Filter>include\LuaForOpenSiv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\detail\IEnvironment.ipp">
+      <Filter>include\LuaForOpenSiv3D\Environment\detail</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\InternalStrings.cpp">
+      <Filter>src\LuaForOpenSiv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Environment\GlobalEnvironment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
