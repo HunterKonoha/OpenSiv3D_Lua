@@ -53,7 +53,7 @@
       <Filter>src\LuaForOpenSiv3D</Filter>
     </ClCompile>
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Environment\GlobalEnvironment.cpp">
-      <Filter>src</Filter>
+      <Filter>src\LuaForOpenSiv3D\Environment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
