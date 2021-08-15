@@ -1,7 +1,7 @@
 ﻿#include <Siv3D.hpp>
 #include <HamFramework.hpp>
 
-// #include "src/lua.hpp"
+#include "lua.hpp"
 
 
 void Main() {

@@ -74,7 +74,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/..\Dependencies\OpenSiv3D\include;$(SolutionDir)/..\Dependencies\OpenSiv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/..\Dependencies\OpenSiv3D\include;$(SolutionDir)/..\Dependencies\OpenSiv3D\include\ThirdParty;$(SolutionDir)/../OpenSiv3D_lua\include;$(SolutionDir)/../OpenSiv3D_lua\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/../Dependencies\OpenSiv3D\lib\Windows;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
     <OutDir>..\OpenSiv3D_lua\lib\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug\Intermediate\</IntDir>
@@ -82,7 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/..\Dependencies\OpenSiv3D\include;$(SolutionDir)/..\Dependencies\OpenSiv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)/..\Dependencies\OpenSiv3D\include;$(SolutionDir)/..\Dependencies\OpenSiv3D\include\ThirdParty;$(SolutionDir)/../OpenSiv3D_lua\include;$(SolutionDir)/../OpenSiv3D_lua\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/../Dependencies\OpenSiv3D\lib\Windows;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
     <OutDir>..\OpenSiv3D_lua\lib\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
