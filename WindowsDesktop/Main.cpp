@@ -4,6 +4,7 @@
 #include <LuaScript.h>
 #include <sol/sol.hpp>
 #include <LuaForOpenSiv3D/InternalStrings.h>
+#include <LuaForOpenSiv3D/Environment/GlobalEnvironment.h>
 
 struct A {
 	static int B(int a) {
@@ -14,7 +15,7 @@ struct A {
 void Main() {
 	s3d::String str = s3d::LuaScript::Internal::convertString("test string");
 
-	sol::state state;
+	sol::state& state = LuaScript::GlobalEnvironment.m_state;
 	state.open_libraries(sol::lib::base);
 	sol::environment env(state, sol::create, state.globals()); // state.globals()がないと，sol::stateの変更が反映されない
 	sol::environment env2(state, sol::create, state.globals());
@@ -29,6 +30,8 @@ void Main() {
 	//auto a_type2 = env2.new_usertype<A>("A");
 	//a_type2.set_function("B", &A::B);
 
+	LuaScript::GlobalEnvironment.ExecuteFromString(U"a0 = A.B(1)");
+
 	// scriptの第三引数でenvを指定可能．指定しないとsol::stateで実行されて，globalsで構築されたenvに影響を与える
 	auto result_1 = state.script("a = A.B(3)", env);
 	sol::call_status valid_1 = result_1.status();
@@ -37,7 +40,7 @@ void Main() {
 	// globalsで構築していても，他のenvの結果は取得できない
 	auto result_2 = state.script("b = A.B(5)", env2);
 	int v3 = env2["b"];
-	int v2 = env2["a"].get_or(0);
+	int v2 = env2["a0"].get_or(0);
 
 
 

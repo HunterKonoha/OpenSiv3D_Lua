@@ -13,6 +13,7 @@ namespace s3d::LuaScript {
 
 			public:
 				void ExecuteFromFile(const Internal::String& file_name);
+				void ExecuteFromString(const Internal::String& execute_command);
 		};
 	}
 
