@@ -1,10 +1,47 @@
 ﻿#include <Siv3D.hpp>
 #include <HamFramework.hpp>
 
-#include "lua.hpp"
+#include <LuaScript.h>
+#include <sol/sol.hpp>
+#include <LuaForOpenSiv3D/InternalStrings.h>
 
+struct A {
+	static int B(int a) {
+		return a * 2;
+	}
+};
 
 void Main() {
+	s3d::String str = s3d::LuaScript::Internal::convertString("test string");
+
+	sol::state state;
+	state.open_libraries(sol::lib::base);
+	sol::environment env(state, sol::create, state.globals()); // state.globals()がないと，sol::stateの変更が反映されない
+	sol::environment env2(state, sol::create, state.globals());
+
+	// stateにすると，globalsで指定しているenv全体に反映
+	// envにすると，env2やsol::stateには反映されない (globalsで指定していてもsol::stateには影響しない)
+	auto a_type = state.new_usertype<A>("A");
+	// 下記2つは同じ意味
+	//a_type["B"] = &A::B;
+	a_type.set_function("B", &A::B);
+
+	//auto a_type2 = env2.new_usertype<A>("A");
+	//a_type2.set_function("B", &A::B);
+
+	// scriptの第三引数でenvを指定可能．指定しないとsol::stateで実行されて，globalsで構築されたenvに影響を与える
+	auto result_1 = state.script("a = A.B(3)", env);
+	sol::call_status valid_1 = result_1.status();
+	int v1 = env["a"];
+	// globalsでenvを構築していれば，stateにロードされている関数・変数が使える
+	// globalsで構築していても，他のenvの結果は取得できない
+	auto result_2 = state.script("b = A.B(5)", env2);
+	int v3 = env2["b"];
+	int v2 = env2["a"].get_or(0);
+
+
+
+
 	while (s3d::System::Update()) {
 
 	}
