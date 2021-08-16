@@ -13,6 +13,9 @@ struct A {
 };
 
 void Main() {
+	Logger.enable();
+	Console.open();
+
 	s3d::String str = s3d::LuaScript::Internal::convertString("test string");
 
 	sol::state& state = LuaScript::GlobalEnvironment.m_state;
@@ -22,15 +25,17 @@ void Main() {
 
 	// stateにすると，globalsで指定しているenv全体に反映
 	// envにすると，env2やsol::stateには反映されない (globalsで指定していてもsol::stateには影響しない)
-	auto a_type = state.new_usertype<A>("A");
+	auto a_type = env.new_usertype<A>("A");
 	// 下記2つは同じ意味
 	//a_type["B"] = &A::B;
 	a_type.set_function("B", &A::B);
 
-	//auto a_type2 = env2.new_usertype<A>("A");
-	//a_type2.set_function("B", &A::B);
+	auto a_type2 = env2.new_usertype<A>("A");
+	a_type2.set_function("B", &A::B);
 
-	LuaScript::GlobalEnvironment.ExecuteFromString(U"a0 = A.B(1)");
+	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
+	std::optional<int> v0 = LuaScript::GlobalEnvironment.executeFromString<int>(U"return 123");
+	auto v01 = LuaScript::GlobalEnvironment.executeFromString<std::tuple<int, double, std::string>>(U"return 123, 0.0, 'test'");
 
 	// scriptの第三引数でenvを指定可能．指定しないとsol::stateで実行されて，globalsで構築されたenvに影響を与える
 	auto result_1 = state.script("a = A.B(3)", env);

@@ -24,6 +24,15 @@
     <Filter Include="src\LuaForOpenSiv3D\Environment">
       <UniqueIdentifier>{d436bfe9-1503-48a3-bdbc-df21be16ea5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Error">
+      <UniqueIdentifier>{01f59adb-43f6-4ec0-a6cd-d65721bc44e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LuaForOpenSiv3D\Error">
+      <UniqueIdentifier>{2876a31a-a7d0-4ca8-8c35-a61fe612ed92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Error\detail">
+      <UniqueIdentifier>{bb235651-a610-4085-ab08-3a963c702091}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h">
@@ -44,6 +53,15 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\detail\IEnvironment.ipp">
       <Filter>include\LuaForOpenSiv3D\Environment\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Error\ErrorUtility.h">
+      <Filter>include\LuaForOpenSiv3D\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Error\detail\ErrorUtility.ipp">
+      <Filter>include\LuaForOpenSiv3D\Error\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\detail\GlobalEnvironment.ipp">
+      <Filter>include\LuaForOpenSiv3D\Environment\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -54,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Environment\GlobalEnvironment.cpp">
       <Filter>src\LuaForOpenSiv3D\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Error\ErrorUtility.cpp">
+      <Filter>src\LuaForOpenSiv3D\Error</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
