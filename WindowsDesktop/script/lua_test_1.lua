@@ -2,6 +2,7 @@ function Execute()
     --CallAndPrint({Add,Sub,Mul})
     --Test:TestFunc()
     str = "Hello"
+    return str
 end
 
 function Mul(value_1, value_2)

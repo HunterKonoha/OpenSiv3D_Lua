@@ -33,6 +33,12 @@
     <Filter Include="include\LuaForOpenSiv3D\Error\detail">
       <UniqueIdentifier>{bb235651-a610-4085-ab08-3a963c702091}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Executer">
+      <UniqueIdentifier>{de6250fd-94a3-4baf-a0d4-5024f650389f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LuaForOpenSiv3D\Executer">
+      <UniqueIdentifier>{2b6ab942-e838-4d17-8eba-46b23863fe9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h">
@@ -62,6 +68,9 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\detail\GlobalEnvironment.ipp">
       <Filter>include\LuaForOpenSiv3D\Environment\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\ExecuteResult.h">
+      <Filter>include\LuaForOpenSiv3D\Executer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -75,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Error\ErrorUtility.cpp">
       <Filter>src\LuaForOpenSiv3D\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Executer\ExecuteResult.cpp">
+      <Filter>src\LuaForOpenSiv3D\Executer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

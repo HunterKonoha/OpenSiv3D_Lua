@@ -2,6 +2,7 @@
 #include <sol/sol.hpp>
 #include <LuaForOpenSiv3D/Environment/IEnvironment.h>
 #include <LuaForOpenSiv3D/Error/ErrorUtility.h>
+#include <LuaForOpenSiv3D/Executer/ExecuteResult.h>
 #include <LuaForOpenSiv3D/InternalStrings.h>
 #include <optional>
 
@@ -14,9 +15,10 @@ namespace s3d::LuaScript {
 				//sol::environment m_global_env;
 
 			public:
-				void executeFromFile(const Internal::String& file_name);
-				template<typename ResultType = void>
-				std::conditional_t<std::is_same_v<ResultType, void>, void, std::optional<ResultType>> executeFromString(const Internal::String& execute_command);
+				s3d::LuaScript::ExecuteResult executeFromFile(const Internal::String& file_name);
+				//template<typename ResultType = void>
+				//std::conditional_t<std::is_same_v<ResultType, void>, void, std::optional<ResultType>> executeFromString(const Internal::String& execute_command);
+				s3d::LuaScript::ExecuteResult executeFromString(const Internal::String& execute_command);
 		};
 	}
 

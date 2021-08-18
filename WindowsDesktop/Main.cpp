@@ -34,8 +34,12 @@ void Main() {
 	a_type2.set_function("B", &A::B);
 
 	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
-	std::optional<int> v0 = LuaScript::GlobalEnvironment.executeFromString<int>(U"return 123");
-	auto v01 = LuaScript::GlobalEnvironment.executeFromString<std::tuple<int, double, std::string>>(U"return 123, 0.0, 'test'");
+	LuaScript::ExecuteResult v0 = LuaScript::GlobalEnvironment.executeFromString(U"return 123");
+	LuaScript::ExecuteResult v01 = LuaScript::GlobalEnvironment.executeFromString(U"return 123, 0.0, 'test'");
+	LuaScript::ExecuteResult file_result = LuaScript::GlobalEnvironment.executeFromFile(U"script/lua_test_1.lua");
+	sol::protected_function_result func0 = LuaScript::GlobalEnvironment.m_state["Execute"].call();
+	std::string func_result0 = func0;
+	//auto func = file_result.m_execute_result["Execute"];
 
 	// scriptの第三引数でenvを指定可能．指定しないとsol::stateで実行されて，globalsで構築されたenvに影響を与える
 	auto result_1 = state.script("a = A.B(3)", env);
