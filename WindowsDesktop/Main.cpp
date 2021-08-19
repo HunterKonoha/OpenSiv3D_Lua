@@ -12,6 +12,33 @@ struct A {
 	}
 };
 
+void outputSolType(std::reference_wrapper<sol::protected_function_result> result) {
+
+	std::cout << "begin" << std::endl;
+	for (int i = 0; i < 5; ++i) {
+		auto type = result.get().get_type(i);
+		switch (type)
+		{
+		case sol::type::none:
+			std::cout << "\tnone" << std::endl;
+			break;
+
+		case sol::type::string:
+			std::cout << "\tstring(" << result.get().get<std::string>(i) << ")" << std::endl;
+			break;
+
+		case sol::type::number:
+			std::cout << "\tnumber(" << result.get().get<double>(i) << ")" << std::endl;
+			break;
+
+		default:
+			std::cout << "\tother(" << std::endl;
+			break;
+		}
+	}
+	std::cout << "end" << std::endl;
+}
+
 void Main() {
 	Logger.enable();
 	Console.open();
@@ -36,20 +63,59 @@ void Main() {
 	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
 	LuaScript::ExecuteResult v0 = LuaScript::GlobalEnvironment.executeFromString(U"return 123");
 	LuaScript::ExecuteResult v01 = LuaScript::GlobalEnvironment.executeFromString(U"return 123, 0.0, 'test'");
-	LuaScript::ExecuteResult file_result = LuaScript::GlobalEnvironment.executeFromFile(U"script/lua_test_1.lua");
+	outputSolType(v01.m_execute_result);
+	LuaScript::ExecuteResult file_result = LuaScript::GlobalEnvironment.executeFromFile(U"script/lua_test_3.lua");
+	auto type_10 = file_result.m_execute_result.get_type();
+	int stack_index0 = file_result.m_execute_result.stack_index();
+	outputSolType(file_result.m_execute_result);
 	sol::protected_function_result func0 = LuaScript::GlobalEnvironment.m_state["Execute"].call();
-	std::string func_result0 = func0;
+	outputSolType(file_result.m_execute_result);
+	outputSolType(func0);
+	sol::protected_function_result func1 = LuaScript::GlobalEnvironment.m_state["Execute2"].call();
+	outputSolType(func0);
+	auto type_11 = file_result.m_execute_result.get_type();
+	outputSolType(file_result.m_execute_result);
+
+	LuaScript::ExecuteResult file_result2 = LuaScript::GlobalEnvironment.executeFromFile(U"script/lua_test_4.lua");
+	outputSolType(file_result2.m_execute_result);
+
+	//std::string func_result0 = func0;
+	auto type_0 = v01.m_execute_result.get_type();
+	auto type_1 = file_result.m_execute_result.get_type();
+	int str_result = file_result.m_execute_result;
+	std::string str_result11 = func0;
+	std::string str_result12 = func1;
+	int str_result2 = file_result2.m_execute_result;
 	//auto func = file_result.m_execute_result["Execute"];
 
 	// scriptの第三引数でenvを指定可能．指定しないとsol::stateで実行されて，globalsで構築されたenvに影響を与える
+
+	auto tmp_result_1 = state.script("return 123", env);
+	auto tmp_result_2 = state.script("return 456", env);
+	int tmp_result_val_1 = tmp_result_1;
+	int tmp_result_val_2 = tmp_result_2;
+
+
 	auto result_1 = state.script("a = A.B(3)", env);
+	auto result_4 = state.script("a = A.B(4)", env);
 	sol::call_status valid_1 = result_1.status();
 	int v1 = env["a"];
 	// globalsでenvを構築していれば，stateにロードされている関数・変数が使える
 	// globalsで構築していても，他のenvの結果は取得できない
 	auto result_2 = state.script("b = A.B(5)", env2);
-	int v3 = env2["b"];
+	auto v3 = env2["b0"];
+	//env2.
+	
 	int v2 = env2["a0"].get_or(0);
+
+	if (!v3.valid()) {
+		auto type_2 = v3.get_type();
+		//v3.
+		std::string err = v3.operator std::string();
+		
+		//std::string msg = err.what();
+		int tmp= 1;
+	}
 
 
 

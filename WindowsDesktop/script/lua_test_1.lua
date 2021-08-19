@@ -5,6 +5,10 @@ function Execute()
     return str
 end
 
+function Execute2()
+    return 789
+end
+
 function Mul(value_1, value_2)
     return value_1 * value_2
 end
@@ -28,6 +32,7 @@ function TestCall()
     Print("x:"..pos.x)
     Print("y:"..pos.y)
     Print(pos:isZero())
+    return 999
 end
 
 function Update()

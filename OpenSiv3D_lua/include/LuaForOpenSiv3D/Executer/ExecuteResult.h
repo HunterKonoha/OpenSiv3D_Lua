@@ -7,6 +7,7 @@ namespace s3d::LuaScript {
 		// private:
 		public: // for debug
 			sol::protected_function_result m_execute_result;
+			bool m_has_value;
 
 		public:
 			ExecuteResult() = delete;
