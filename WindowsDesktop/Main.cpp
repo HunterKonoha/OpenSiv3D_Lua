@@ -63,6 +63,7 @@ void Main() {
 
 	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
 	LuaScript::ExecuteResult v0 = LuaScript::GlobalEnvironment.executeFromString(U"return 123");
+	int v0_val = v0;
 	LuaScript::ExecuteResult v01 = LuaScript::GlobalEnvironment.executeFromString(U"return 123, 0.0, 'test'");
 	auto v01_type0 = v01.getValueType();
 	auto v01_type1 = v01.getValueType(1);

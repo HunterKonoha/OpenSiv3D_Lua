@@ -1,6 +1,11 @@
 #pragma once
 
 
+template<typename T>
+ s3d::LuaScript::ExecuteResult::operator T()const {
+	 return this->getValue<T>(0);
+}
+
 template<typename T, std::enable_if_t<!s3d::LuaScript::detail::IsTupple<T>::value, void*>>
 T s3d::LuaScript::ExecuteResult::getValue(uint32_t stack_offset)const {
 	// ポインタ・参照・constの修飾にはsolが対応していないので，ついている場合はビルドエラーにする

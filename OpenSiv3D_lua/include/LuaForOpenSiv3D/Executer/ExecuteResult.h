@@ -22,6 +22,8 @@ namespace s3d::LuaScript {
 		public:
 			ExecuteResult() = delete;
 			ExecuteResult(sol::protected_function_result&& execute_result);
+			template<typename T>
+			operator T()const;
 			bool isExecutionSucceeded()const;
 			bool hasValue()const;
 			sol::type getValueType(uint32_t stack_offset = 0)const;
