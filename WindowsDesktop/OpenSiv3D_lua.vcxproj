@@ -17,6 +17,7 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Environment\IEnvironment.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Error\detail\ErrorUtility.ipp" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Error\ErrorUtility.h" />
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\detail\ExecuteResult.ipp" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\ExecuteResult.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\InternalStrings.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\LibraryLinker.h" />

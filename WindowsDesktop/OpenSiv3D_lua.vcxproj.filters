@@ -39,6 +39,9 @@
     <Filter Include="src\LuaForOpenSiv3D\Executer">
       <UniqueIdentifier>{2b6ab942-e838-4d17-8eba-46b23863fe9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\LuaForOpenSiv3D\Executer\detail">
+      <UniqueIdentifier>{fe1b8532-0618-4925-8292-9dec10cc49da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\ExecuteResult.h">
       <Filter>include\LuaForOpenSiv3D\Executer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\detail\ExecuteResult.ipp">
+      <Filter>include\LuaForOpenSiv3D\Executer\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

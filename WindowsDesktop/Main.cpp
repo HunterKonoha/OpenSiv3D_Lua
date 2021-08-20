@@ -5,6 +5,7 @@
 #include <sol/sol.hpp>
 #include <LuaForOpenSiv3D/InternalStrings.h>
 #include <LuaForOpenSiv3D/Environment/GlobalEnvironment.h>
+#include <tuple>
 
 struct A {
 	static int B(int a) {
@@ -63,6 +64,18 @@ void Main() {
 	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
 	LuaScript::ExecuteResult v0 = LuaScript::GlobalEnvironment.executeFromString(U"return 123");
 	LuaScript::ExecuteResult v01 = LuaScript::GlobalEnvironment.executeFromString(U"return 123, 0.0, 'test'");
+	auto v01_type0 = v01.getValueType();
+	auto v01_type1 = v01.getValueType(1);
+	auto v01_type2 = v01.getValueType(2);
+	auto tuple_00 = v01.m_execute_result.get<int>(0);
+	auto tuple_0 = v01.getValue<int>(0);
+	auto tuple_01 = v01.getValue<double>(1);
+	auto tuple_02 = v01.getValue<std::string>(2);
+	// auto tuple_03 = v01.getValue<std::string>(3); // error OK
+	auto tuple_1 = v01.getValue<std::tuple<int, double>>(0);
+	auto tuple_2 = v01.getValue<std::tuple<double, std::string>>(1);
+	// auto tuple_3 = v01.getValue<std::tuple<std::string, double>>(2); // error OK
+	int v01_value_count = v01.getValueCount();
 	outputSolType(v01.m_execute_result);
 	LuaScript::ExecuteResult file_result = LuaScript::GlobalEnvironment.executeFromFile(U"script/lua_test_3.lua");
 	auto type_10 = file_result.m_execute_result.get_type();
