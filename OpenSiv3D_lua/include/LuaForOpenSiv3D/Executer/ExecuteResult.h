@@ -37,7 +37,13 @@ namespace s3d::LuaScript {
 					}
 					// —áŠOŽž‚Í–³Œø’l‚ð•Ô‚·
 					if (!this->hasValue() || !this->isExecutionSucceeded() || this->getValueCount() - static_cast<int>(getting_size) < static_cast<int>(stack_offset)) {
-						return T{ std::nullopt };
+						if constexpr (sol::meta::is_specialization_of_v<T, std::optional>) {
+							return T{ std::nullopt };
+						}
+						else {
+							return T{ s3d::none };
+						}
+						
 					}
 					else {
 						return this->m_execute_result.get<T>(stack_offset);
