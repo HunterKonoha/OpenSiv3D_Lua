@@ -71,6 +71,7 @@ void Main() {
 	auto tuple_000 = v01.m_execute_result.get<int>(0);
 	auto tuple_00 = v01.getValue<int>(0);
 	auto tuple_00_str = v01.getValue<std::optional<std::string>>(0);
+	auto tuple_01_str = v01.getValueOr<std::string>("Not value", 0);
 	auto tuple_0 = v01.getValue<int>(0);
 	auto tuple_01 = v01.getValue<double>(1);
 	auto tuple_02 = v01.getValue<std::string>(2);

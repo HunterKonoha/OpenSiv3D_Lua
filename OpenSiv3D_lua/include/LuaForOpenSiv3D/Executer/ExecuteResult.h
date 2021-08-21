@@ -73,6 +73,15 @@ namespace s3d::LuaScript {
 					return this->m_execute_result.get<T>(stack_offset);
 				}
 			}
+			
+			template<typename T, typename F>
+			decltype(auto) getValueOr(F&& value, std::size_t stack_index = 0) {
+				std::optional<T> opt_value = this->getValue<std::optional<T>>(stack_index);
+				if (opt_value) {
+					return static_cast<T>(opt_value.value());
+				}
+				return static_cast<T>(std::forward<T>(value));
+			}
 
 			//template<typename T, std::enable_if_t<!detail::IsTupple<T>::value, void*> = nullptr>
 			//T getValue(uint32_t stack_offset = 0)const;
