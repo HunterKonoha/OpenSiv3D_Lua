@@ -20,7 +20,7 @@ namespace s3d::LuaScript {
 				//template<typename ResultType = void>
 				//std::conditional_t<std::is_same_v<ResultType, void>, void, std::optional<ResultType>> executeFromString(const Internal::String& execute_command);
 				s3d::LuaScript::ExecuteResult executeFromString(const Internal::String& execute_command);
-				s3d::LuaScript::LuaFunction getFunction(const Internal::String& function_name);
+				s3d::LuaScript::LuaFunction getFunction(const Internal::String& function_name)const;
 		};
 	}
 

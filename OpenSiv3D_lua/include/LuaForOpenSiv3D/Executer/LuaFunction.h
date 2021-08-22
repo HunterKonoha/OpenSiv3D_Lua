@@ -14,7 +14,7 @@ namespace s3d::LuaScript {
 			bool isValid()const;
 
 			template<typename ...Types>
-			ExecuteResult operator()(Types&&... arguments) {
+			ExecuteResult operator()(Types&&... arguments)const {
 				return this->call(std::forward<Types>(arguments)...);
 			}
 

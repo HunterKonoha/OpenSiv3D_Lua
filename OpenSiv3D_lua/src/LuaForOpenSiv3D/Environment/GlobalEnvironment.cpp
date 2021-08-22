@@ -14,7 +14,7 @@ s3d::LuaScript::ExecuteResult s3d::LuaScript::detail::GlobalEnvironment_impl::ex
 	return s3d::LuaScript::ExecuteResult(std::move(execute_result));
 }
 
-s3d::LuaScript::LuaFunction s3d::LuaScript::detail::GlobalEnvironment_impl::getFunction(const Internal::String& function_name) {
+s3d::LuaScript::LuaFunction s3d::LuaScript::detail::GlobalEnvironment_impl::getFunction(const Internal::String& function_name)const {
 	auto func = this->m_state[Internal::convertString(function_name)];
 	if (func.get_type() == sol::type::function) {
 		return s3d::LuaScript::LuaFunction(func.get<sol::function>());

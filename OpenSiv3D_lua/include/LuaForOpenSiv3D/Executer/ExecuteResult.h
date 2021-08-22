@@ -75,7 +75,7 @@ namespace s3d::LuaScript {
 			}
 			
 			template<typename T, typename F>
-			decltype(auto) getValueOr(F&& value, std::size_t stack_index = 0) {
+			decltype(auto) getValueOr(F&& value, std::size_t stack_index = 0)const {
 				std::optional<T> opt_value = this->getValue<std::optional<T>>(stack_index);
 				if (opt_value) {
 					return static_cast<T>(opt_value.value());
