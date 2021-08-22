@@ -85,10 +85,14 @@ void Main() {
 	auto type_10 = file_result.m_execute_result.get_type();
 	int stack_index0 = file_result.m_execute_result.stack_index();
 	outputSolType(file_result.m_execute_result);
-	sol::protected_function_result func0 = LuaScript::GlobalEnvironment.m_state["Execute"].call();
+	LuaScript::LuaFunction func0_tmp = LuaScript::GlobalEnvironment.getFunction(U"Execute");
+	LuaScript::ExecuteResult func0 = func0_tmp.call();
+	LuaScript::ExecuteResult func01 = func0_tmp();
 	outputSolType(file_result.m_execute_result);
-	outputSolType(func0);
-	sol::protected_function_result func1 = LuaScript::GlobalEnvironment.m_state["Execute2"].call();
+	outputSolType(func0.m_execute_result);
+	outputSolType(func01.m_execute_result);
+	LuaScript::LuaFunction fun0 = LuaScript::GlobalEnvironment.getFunction(U"Execute3");
+	sol::protected_function_result func1 = fun0.m_func.call();
 	outputSolType(func0);
 	auto type_11 = file_result.m_execute_result.get_type();
 	outputSolType(file_result.m_execute_result);

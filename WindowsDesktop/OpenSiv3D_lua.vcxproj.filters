@@ -77,6 +77,9 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\detail\ExecuteResult.ipp">
       <Filter>include\LuaForOpenSiv3D\Executer\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\LuaFunction.h">
+      <Filter>include\LuaForOpenSiv3D\Executer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -92,6 +95,9 @@
       <Filter>src\LuaForOpenSiv3D\Error</Filter>
     </ClCompile>
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Executer\ExecuteResult.cpp">
+      <Filter>src\LuaForOpenSiv3D\Executer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Executer\LuaFunction.cpp">
       <Filter>src\LuaForOpenSiv3D\Executer</Filter>
     </ClCompile>
   </ItemGroup>

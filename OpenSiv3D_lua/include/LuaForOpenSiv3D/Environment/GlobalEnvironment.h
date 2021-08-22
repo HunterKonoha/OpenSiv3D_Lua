@@ -3,6 +3,7 @@
 #include <LuaForOpenSiv3D/Environment/IEnvironment.h>
 #include <LuaForOpenSiv3D/Error/ErrorUtility.h>
 #include <LuaForOpenSiv3D/Executer/ExecuteResult.h>
+#include <LuaForOpenSiv3D/Executer/LuaFunction.h>
 #include <LuaForOpenSiv3D/InternalStrings.h>
 #include <optional>
 
@@ -19,6 +20,7 @@ namespace s3d::LuaScript {
 				//template<typename ResultType = void>
 				//std::conditional_t<std::is_same_v<ResultType, void>, void, std::optional<ResultType>> executeFromString(const Internal::String& execute_command);
 				s3d::LuaScript::ExecuteResult executeFromString(const Internal::String& execute_command);
+				s3d::LuaScript::LuaFunction getFunction(const Internal::String& function_name);
 		};
 	}
 

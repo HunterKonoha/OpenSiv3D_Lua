@@ -19,6 +19,7 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Error\ErrorUtility.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\detail\ExecuteResult.ipp" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\ExecuteResult.h" />
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\LuaFunction.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\InternalStrings.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\LibraryLinker.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h" />
@@ -30,6 +31,7 @@
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Environment\GlobalEnvironment.cpp" />
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Error\ErrorUtility.cpp" />
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Executer\ExecuteResult.cpp" />
+    <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\Executer\LuaFunction.cpp" />
     <ClCompile Include="..\OpenSiv3D_lua\src\LuaForOpenSiv3D\InternalStrings.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
