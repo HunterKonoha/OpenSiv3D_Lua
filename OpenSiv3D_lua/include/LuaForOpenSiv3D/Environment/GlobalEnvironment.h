@@ -4,6 +4,7 @@
 #include <LuaForOpenSiv3D/Error/ErrorUtility.h>
 #include <LuaForOpenSiv3D/Executer/ExecuteResult.h>
 #include <LuaForOpenSiv3D/Executer/LuaFunction.h>
+#include <LuaForOpenSiv3D/Executer/SolVariable.h>
 #include <LuaForOpenSiv3D/InternalStrings.h>
 #include <optional>
 
@@ -13,6 +14,7 @@ namespace s3d::LuaScript {
 			//private:
 			public: // for test
 				sol::state m_state;
+				using VaribleType = decltype(m_state.operator[](std::declval<std::string>()));
 				//sol::environment m_global_env;
 
 			public:
@@ -21,6 +23,7 @@ namespace s3d::LuaScript {
 				//std::conditional_t<std::is_same_v<ResultType, void>, void, std::optional<ResultType>> executeFromString(const Internal::String& execute_command);
 				s3d::LuaScript::ExecuteResult executeFromString(const Internal::String& execute_command);
 				s3d::LuaScript::LuaFunction getFunction(const Internal::String& function_name)const;
+				s3d::LuaScript::SolVariable<VaribleType> getVariable(const Internal::String& variable_name);
 		};
 	}
 

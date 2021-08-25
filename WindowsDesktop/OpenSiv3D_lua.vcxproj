@@ -20,6 +20,7 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\detail\ExecuteResult.ipp" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\ExecuteResult.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\LuaFunction.h" />
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\SolVariable.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\InternalStrings.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\LibraryLinker.h" />
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaScript.h" />

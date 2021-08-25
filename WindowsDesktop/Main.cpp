@@ -43,6 +43,7 @@ void outputSolType(std::reference_wrapper<sol::protected_function_result> result
 void Main() {
 	Logger.enable();
 	Console.open();
+	s3d::String items = U"\xF09FA  キーボード設定";
 
 	s3d::String str = s3d::LuaScript::Internal::convertString("test string");
 
@@ -61,7 +62,20 @@ void Main() {
 	auto a_type2 = env2.new_usertype<A>("A");
 	a_type2.set_function("B", &A::B);
 
+
+	auto a_type3 = state.new_usertype<A>("A");
+	a_type3.set_function("B", &A::B);
+
 	LuaScript::GlobalEnvironment.executeFromString(U"a0 = A.B(1)");
+	auto a0_01 = LuaScript::GlobalEnvironment.m_state[std::u32string(U"a0")];
+	sol::type type001 = a0_01.get_type();
+	int a0_v00 = a0_01;
+	auto a0_v1 = LuaScript::GlobalEnvironment.getVariable(U"a0");
+	int a0_v01 = a0_v1.m_variable;
+	a0_v1.m_variable = 0;
+	auto a0_v2 = LuaScript::GlobalEnvironment.getVariable(U"a0");
+	int a0_v02 = a0_v1.m_variable;
+
 	LuaScript::ExecuteResult v0 = LuaScript::GlobalEnvironment.executeFromString(U"return 123");
 	int v0_val = v0;
 	LuaScript::ExecuteResult v01 = LuaScript::GlobalEnvironment.executeFromString(U"return 123, 0.0, 'test'");
@@ -91,9 +105,9 @@ void Main() {
 	outputSolType(file_result.m_execute_result);
 	outputSolType(func0.m_execute_result);
 	outputSolType(func01.m_execute_result);
-	LuaScript::LuaFunction fun0 = LuaScript::GlobalEnvironment.getFunction(U"Execute3");
+	LuaScript::LuaFunction fun0 = LuaScript::GlobalEnvironment.getFunction(U"Execute2");
 	sol::protected_function_result func1 = fun0.m_func.call();
-	outputSolType(func0);
+	//outputSolType(func0);
 	auto type_11 = file_result.m_execute_result.get_type();
 	outputSolType(file_result.m_execute_result);
 
@@ -120,7 +134,8 @@ void Main() {
 	auto result_1 = state.script("a = A.B(3)", env);
 	auto result_4 = state.script("a = A.B(4)", env);
 	sol::call_status valid_1 = result_1.status();
-	int v1 = env["a"];
+	auto v1 = env[std::string("a")];
+	//auto v10 = LuaScript::GlobalEnvironment.getVariable(U"a0");
 	// globalsでenvを構築していれば，stateにロードされている関数・変数が使える
 	// globalsで構築していても，他のenvの結果は取得できない
 	auto result_2 = state.script("b = A.B(5)", env2);
@@ -130,19 +145,20 @@ void Main() {
 	int v2 = env2["a0"].get_or(0);
 
 	if (!v3.valid()) {
-		auto type_2 = v3.get_type();
+		//uto type_2 = v3.get_type();
 		//v3.
-		std::string err = v3.operator std::string();
+		//std::string err = v3.operator std::string();
 		
 		//std::string msg = err.what();
-		int tmp= 1;
+		//int tmp= 1;
 	}
 
 
 
+	const Font font{ 30, Typeface::Medium };
 
 	while (s3d::System::Update()) {
-
+		font(items).draw(55, 48, ColorF{ 0.25 });
 	}
 	return;
 }

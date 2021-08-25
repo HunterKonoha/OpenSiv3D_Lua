@@ -26,3 +26,10 @@ s3d::LuaScript::LuaFunction s3d::LuaScript::detail::GlobalEnvironment_impl::getF
 		return s3d::LuaScript::LuaFunction();
 	}
 }
+
+s3d::LuaScript::SolVariable<s3d::LuaScript::detail::GlobalEnvironment_impl::VaribleType> s3d::LuaScript::detail::GlobalEnvironment_impl::getVariable(const Internal::String& variable_name) {
+	//auto value = this->m_state[Internal::convertString(variable_name)];
+	std::string name = "a0";
+	auto value = this->m_state[name];
+	return s3d::LuaScript::SolVariable<s3d::LuaScript::detail::GlobalEnvironment_impl::VaribleType>(value);
+}

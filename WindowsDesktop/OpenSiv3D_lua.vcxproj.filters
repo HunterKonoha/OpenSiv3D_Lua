@@ -80,6 +80,9 @@
     <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\LuaFunction.h">
       <Filter>include\LuaForOpenSiv3D\Executer</Filter>
     </ClInclude>
+    <ClInclude Include="..\OpenSiv3D_lua\include\LuaForOpenSiv3D\Executer\SolVariable.h">
+      <Filter>include\LuaForOpenSiv3D\Executer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
